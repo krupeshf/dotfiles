@@ -1,10 +1,18 @@
 autocmd Filetype gitcommit setlocal textwidth=72
 
+syntax enable           " enable syntax processing
+
 "font is really good i like it
 set guifont=Menlo:h14
 
 "for showing the line number
 set number
+
+" very useful relative number mode where it shows the current line number and
+" other lines are relative to it
+set relativenumber
+
+set cursorline          " highlight current line
 
 "for searching we dont want to be case sensitive -- http://vim.wikia.com/wiki/Searching
 set ignorecase
@@ -12,6 +20,7 @@ set ignorecase
 " search to be ignore case
 set incsearch "Highlight dynamically as pattern is typed
 set hlsearch " Highlight searches
+set showmatch " highlight matching [{()}]
 
 " dont remember why
 set autoread
@@ -20,26 +29,19 @@ set autoread
 set autoindent
 set smartindent
 
-" very useful relative number mode where it shows the current line number and
-" other lines are relative to it
-set relativenumber
-
 " Disable error bells -- http://vim.wikia.com/wiki/Disable_beeping
 set noerrorbells visualbell t_vb=
 
 "for having the swp files in some tmp directory
 " Centralize backups, swapfiles and undo history
-set backupdir=~/.vim/backups
-set directory=~/.vim/swaps
-if exists("&undodir")
-	set undodir=~/.vim/undo
-endif
+" set backupdir=~/.vim/backups
+" set directory=~/.vim/swaps
+" if exists("&undodir")
+	" set undodir=~/.vim/undo
+" endif
 
-"for using spaces as tab and tabstop as 4 by default
-set tabstop=4 shiftwidth=4 expandtab
-
-"for setting the color schme for coding
-colorscheme Tomorrow-Night-Eighties
+"for using spaces as tab and tabstop as 2 by default, tabs are spaces
+set tabstop=2 shiftwidth=2 softtabstop=2 expandtab
 
 "used for enabling auto save when i click on escape button
 let g:auto_save = 1
@@ -73,3 +75,8 @@ set rtp+=/usr/local/opt/fzf
 
 """""EOF"""""
 
+filetype indent on      " load filetype-specific indent files
+" set foldenable          " enable folding
+" set foldlevelstart=10   " open most folds by default
+" Allow saving of files as sudo when I forgot to start vim using sudo.
+command W :execute ':silent w !sudo tee % > /dev/null' | :edit!
