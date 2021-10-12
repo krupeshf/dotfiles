@@ -35,4 +35,8 @@ brew list --casks -1 > brew_casks.txt
 printf "To import exported extensions\n\n\n" > vscode_extensions.txt
 code --list-extensions | xargs -L 1 echo code --install-extension >> vscode_extensions.txt
 
+# for vscode, look at cleaner options - https://github.com/codebling/vs-code-default-keybindings
+
+# for iterm profiles -->> Preferences > Profiles > Default > Other Actions > Save Profile as JSON
+
 git add . && git commit -m "Update dotfile with automated script" && git push

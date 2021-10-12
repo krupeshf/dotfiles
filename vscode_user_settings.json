@@ -1,0 +1,53 @@
+{
+  "editor.lineNumbers": "on",
+  // Cmd + K, Z -->> for zen mode
+  "zenMode.centerLayout": false,
+  "zenMode.fullScreen": false,
+  "zenMode.hideTabs": false,
+  // saving a file with empty new line - very important because of the files need empty new line at the end
+  "files.insertFinalNewline": true,
+  "files.trimFinalNewlines": true,
+  // When enabled, will trim trailing whitespace when you save a file.
+  "files.trimTrailingWhitespace": true,
+  "[markdown]": {
+      "files.trimTrailingWhitespace": false
+  },
+  // for fixing lint issues when saving - let linter do all the work
+  "editor.formatOnSave": false,
+  "tslint.autoFixOnSave": false,
+  "editor.fontSize": 17,
+  // when vscode restarts - it will restore where you left off
+  "window.restoreWindows": "all",
+  "window.newWindowDimensions": "maximized",
+  // when you open up new project - it will not replace existing workspace
+  "window.openFoldersInNewWindow": "on",
+  "window.openFilesInNewWindow": "on",
+  "editor.lineHeight": 0,
+  "extensions.ignoreRecommendations": false,
+  // when we save, all the imports will be organized alphabetically + removed if not used
+  "editor.codeActionsOnSave": {
+      "source.organizeImports": true
+  },
+  // Ctrl keys to be mapped for vim
+  "vim.useCtrlKeys": true,
+  // Controls auto save of dirty files. Accepted values:  "off", "afterDelay", "onFocusChange". If set to "afterDelay" you can configure the delay in "files.autoSaveDelay".
+  "files.autoSave": "off",
+  // end of line should always be \n instead of \r\n
+  "files.eol": "\n",
+  "vs-kubernetes": {
+      "vs-kubernetes.minikube-path": "/Users/krupeshf/.vs-kubernetes/tools/minikube/darwin-amd64/minikube",
+      "vs-kubernetes.draft-path": "/Users/krupeshf/.vs-kubernetes/tools/draft/darwin-amd64/draft",
+      "vs-kubernetes.helm-path": "/Users/krupeshf/.vs-kubernetes/tools/helm/darwin-amd64/helm"
+  },
+  "yaml.schemas": {
+      "kubernetes": "replicaset.yml"
+  },
+  "terminal.integrated.enableBell": true,
+  "workbench.colorTheme": "Visual Studio Light",
+  "editor.tabSize": 2,
+  "editor.insertSpaces": true,
+  "editor.cursorStyle": "line",
+  "editor.wordSeparators": "/\\()\"':,.;<>~!@#$%^&*|+=[]{}`?-",
+  "editor.wordWrap": "off",
+  "opa.checkOnSave": true
+}

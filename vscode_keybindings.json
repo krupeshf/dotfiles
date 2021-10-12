@@ -1,0 +1,69 @@
+// Place your key bindings in this file to overwrite the defaults
+[
+  {
+      "key": "alt+cmd+left",
+      "command": "workbench.action.navigateBack"
+  },
+  {
+      "key": "alt+cmd+right",
+      "command": "workbench.action.navigateForward"
+  },
+  {
+      "key": "alt+right",
+      "command": "cursorWordPartRight",
+      "when": "textInputFocus"
+  },
+  {
+      "key": "ctrl+alt+right",
+      "command": "-cursorWordPartRight",
+      "when": "textInputFocus"
+  },
+  {
+      "key": "shift+alt+right",
+      "command": "cursorWordPartRightSelect",
+      "when": "textInputFocus"
+  },
+  {
+      "key": "ctrl+shift+alt+right",
+      "command": "-cursorWordPartRightSelect",
+      "when": "textInputFocus"
+  },
+  {
+      "key": "alt+left",
+      "command": "cursorWordPartStartLeft",
+      "when": "textInputFocus"
+  },
+  {
+      "key": "ctrl+alt+left",
+      "command": "-cursorWordPartStartLeft",
+      "when": "textInputFocus"
+  },
+  {
+      "key": "shift+alt+left",
+      "command": "cursorWordPartStartLeftSelect",
+      "when": "textInputFocus"
+  },
+  {
+      "key": "ctrl+shift+alt+left",
+      "command": "-cursorWordPartStartLeftSelect",
+      "when": "textInputFocus"
+  },
+      {
+      "key": "alt+cmd+h",
+      "command": "workbench.action.previousEditor"
+  },
+  {
+      "key": "alt+cmd+l",
+      "command": "workbench.action.nextEditor"
+  },
+  {
+      "key": "cmd+e",
+      "command": "opa.eval.selection",
+      "when": "editorLangId == rego"
+  },
+  {
+      "key": "shift+cmd+a",
+      "command": "opa.eval.package",
+      "when": "editorLangId == rego"
+  }
+]
