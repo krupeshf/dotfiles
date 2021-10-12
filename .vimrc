@@ -73,10 +73,10 @@ autocmd BufWritePre * :%s/\s\+$//e
 
 set rtp+=/usr/local/opt/fzf
 
-"""""EOF"""""
-
 filetype indent on      " load filetype-specific indent files
 " set foldenable          " enable folding
 " set foldlevelstart=10   " open most folds by default
 " Allow saving of files as sudo when I forgot to start vim using sudo.
 command W :execute ':silent w !sudo tee % > /dev/null' | :edit!
+
+"""""EOF"""""
