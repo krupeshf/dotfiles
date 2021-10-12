@@ -16,8 +16,6 @@ cp $homeDirectory/.bash_profile \
   $homeDirectory/.iterm2_shell_integration.zsh \
   $homeDirectory/.npmrc \
   $homeDirectory/.p10k.zsh \
-  $homeDirectory/.fzf.bash \
-  $homeDirectory/.fzf.zsh \
   .
 
 mkdir -p .aws
