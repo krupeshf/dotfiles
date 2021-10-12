@@ -316,12 +316,13 @@ clover_hosts(){
 }
 
 # https://medium.com/@Temikus/gcp-ssh-autocomplete-with-fzf-and-zsh-3870192f6ac6
+# https://github.com/junegunn/fzf/wiki/Examples-(completion)
 # just overriding the default ssh
-# put this at the bottom because of
+# please note the `< <(` sequence its critical to do - https://github.com/junegunn/fzf#custom-fuzzy-completion
 _fzf_complete_ssh() {
   ARGS="$@"
   if [[ $ARGS == 'ssh '* ]]; then
-    _fzf_complete "--reverse --multi" "$@" << (cat ~/.ssh/host_list.txt)
+    _fzf_complete "--reverse --multi" "$@" < <(cat ~/.ssh/host_list.txt)
   else
     eval "zle ${fzf_default_completion:-expand-or-complete}"
   fi

@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# direct copy from dusty - https://github.corp.clover.com/dusty-gutzmann/dotfiles/blob/master/.ssh/bastion.sh
 
 dc=$(echo $1 | cut -d. -f3)
 hosts=$(grep ${dc} ~/.ssh/bastions.txt)
