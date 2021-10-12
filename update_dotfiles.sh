@@ -39,4 +39,7 @@ code --list-extensions | xargs -L 1 echo code --install-extension >> vscode_exte
 
 # for iterm profiles -->> Preferences > Profiles > Default > Other Actions > Save Profile as JSON
 
+# for backing up intellij settings - https://gist.github.com/jimzhan/529aa82465549043d883f739e9e93701
+cp ~/Library/Application\ Support/JetBrains/IntelliJIdea2021.1/settings.zip intellijSettings.zip
+
 git add . && git commit -m "Update dotfile with automated script" && git push
