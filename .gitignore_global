@@ -1,0 +1,9 @@
+.terraform*
+*credentials.json
+customers/dev.credentials.json
+dev.credentials.json
+terraform.tfstate*
+.DS_Store
+*.svg
+.idea/
+*.iml
