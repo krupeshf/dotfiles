@@ -315,9 +315,9 @@ clover_hosts(){
   echo $hosts > ~/.ssh/host_list.txt
 }
 
+# just overriding the default ssh fzf
 # https://medium.com/@Temikus/gcp-ssh-autocomplete-with-fzf-and-zsh-3870192f6ac6
 # https://github.com/junegunn/fzf/wiki/Examples-(completion)
-# just overriding the default ssh
 # please note the `< <(` sequence its critical to do - https://github.com/junegunn/fzf#custom-fuzzy-completion
 _fzf_complete_ssh() {
   ARGS="$@"

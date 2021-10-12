@@ -1,0 +1,8 @@
+To import exported extensions
+code --install-extension hashicorp.terraform
+code --install-extension ms-azuretools.vscode-docker
+code --install-extension ms-kubernetes-tools.vscode-kubernetes-tools
+code --install-extension redhat.vscode-commons
+code --install-extension redhat.vscode-yaml
+code --install-extension tsandall.opa
+code --install-extension vscodevim.vim

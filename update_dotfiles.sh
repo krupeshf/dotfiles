@@ -32,4 +32,7 @@ cp $homeDirectory/.ssh/bastion.sh \
 brew list --formula -1 > brew_formulas.txt
 brew list --casks -1 > brew_casks.txt
 
+printf "To import exported extensions\n" > vscode_extensions.txt
+code --list-extensions | xargs -L 1 echo code --install-extension >> vscode_extensions.txt
+
 git add . && git commit -m "Update dotfile with automated script" && git push
