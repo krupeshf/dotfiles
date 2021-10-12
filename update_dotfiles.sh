@@ -1,5 +1,6 @@
 #!/bin/sh
 
+set -o errexit
 set -o xtrace
 
 homeDirectory=/Users/$USER
@@ -7,7 +8,9 @@ homeDirectory=/Users/$USER
 cp $homeDirectory/.bash_profile \
   $homeDirectory/.vimrc \
   $homeDirectory/.gitignore_global \
+  $homeDirectory/.gitconfig \
   $homeDirectory/.zshrc.pre-oh-my-zsh \
+  $homeDirectory/.iterm2_shell_integration.bash \
   .
 
 mkdir -p .aws
