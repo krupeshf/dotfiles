@@ -11,9 +11,9 @@ cp $homeDirectory/.bash_profile \
   .
 
 mkdir -p .aws
-cp $homeDirectory/.aws/config .aws/config
+cp $homeDirectory/.aws/config .aws/
 
 mkdir -p .k9s
-cp $homeDirectory/.k9s/config.yml .k9s/confi.yml
+cp $homeDirectory/.k9s/config.yml .k9s/
 
 git add . && git commit -m "Update dotfile with automated script" && git push
