@@ -29,4 +29,7 @@ cp $homeDirectory/.ssh/bastion.sh \
   $homeDirectory/.ssh/config \
   .ssh/
 
+brew list --formula -1 > brew_formulas.txt
+brew list --casks -1 > brew_casks.txt
+
 git add . && git commit -m "Update dotfile with automated script" && git push
