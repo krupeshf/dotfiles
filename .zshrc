@@ -328,3 +328,71 @@ _fzf_complete_ssh() {
     eval "zle ${fzf_default_completion:-expand-or-complete}"
   fi
 }
+
+# Clear docker containers and images
+clear_docker() {
+    echo "Clearing containers"
+    docker container rm -f $(docker container ls -aq)
+
+    echo "Clearing CI images"
+    docker image rm -f $(docker image ls -a | grep 'container-registry' | awk '{print $3}')
+
+    echo "Clearing layered images"
+    docker image rm -f $(docker image ls -a | grep '<none>' | awk '{print $3}')
+}
+
+# Get cluster credentials
+get_credentials() {
+    case $1 in
+        "dev")
+            gcloud --project clover-dev-kubernetes container clusters get-credentials dev-us-west1-cluster --region us-west1
+            ;;
+        "devci")
+            gcloud --project clover-dev-kubernetes container clusters get-credentials dev-ci-us-west1-cluster --region us-west1
+            ;;
+        "admin")
+            gcloud --project clover-admin-plane container clusters get-credentials admin-us-west1-cluster --region us-west1
+            ;;
+        "prod")
+            gcloud --project clover-prod-kubernetes container clusters get-credentials prod-us-central1-cluster --region us-central1
+            ;;
+        "sandbox")
+            gcloud --project clover-sandbox container clusters get-credentials sandbox-us-west1-cluster --region us-west1
+            ;;
+    esac
+}
+
+# Drain node
+drain_node() {
+    case $1 in
+        "dev")
+            eval "kdev drain $2 --ignore-daemonsets --delete-local-data"
+            ;;
+        "ci")
+            eval "kdevci drain $2 --ignore-daemonsets --delete-local-data"
+            ;;
+        "admin")
+            eval "kadmin drain $2 --ignore-daemonsets --delete-local-data"
+            ;;
+        "prod")
+            eval "kprod drain $2 --ignore-daemonsets --delete-local-data"
+            ;;
+        "sandbox")
+            eval "ksandbox drain $2 --ignore-daemonsets --delete-local-data"
+            ;;
+    esac
+}
+
+tf_check() {
+    echo "Running terraform init..."
+    terraform init
+
+    echo "Running terraform validate..."
+    terraform validate
+
+    echo "Running terraform fmt..."
+    terraform fmt
+
+    echo "Running terraform plan..."
+    terraform plan
+}

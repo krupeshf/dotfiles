@@ -8,6 +8,7 @@ bash-completion@2
 bdw-gc
 brotli
 c-ares
+ca-certificates
 cairo
 check
 chrome-cli
@@ -86,6 +87,7 @@ libidn
 libidn2
 libksba
 liblqr
+libnghttp2
 libogg
 libomp
 libpng
@@ -151,6 +153,7 @@ percona-toolkit
 pinentry
 pixman
 pkg-config
+python@3.10
 python@3.8
 python@3.9
 qpdf
