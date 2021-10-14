@@ -92,6 +92,7 @@ plugins=(
   pip
   python
   gcloud
+  git
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -107,7 +108,7 @@ source $ZSH/oh-my-zsh.sh
 if [[ -n $SSH_CONNECTION ]]; then
   export EDITOR='vim'
 else
-  export EDITOR='mvim'
+  export EDITOR='vim'
 fi
 
 # Compilation flags
@@ -196,6 +197,9 @@ export PATH="$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/b
 
 # Add MongoDb to path
 # export PATH="$PATH:~/mongodb/bin"
+
+# Add mysql client path
+export PATH="/usr/local/opt/mysql-client/bin:$PATH"
 
 # Awesome - this shows which are your change directory paths to look for - helpful in autocompletion
 export CDPATH=.:~:~/code:~/src/apps
