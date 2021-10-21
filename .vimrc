@@ -25,6 +25,9 @@ set showmatch " highlight matching [{()}]
 " dont remember why
 set autoread
 
+set nowrap           " do not automatically wrap on load
+set formatoptions-=t " do not automatically wrap text when typing
+
 " for indentation when clicking on new line, it indents properly
 set autoindent
 set smartindent
