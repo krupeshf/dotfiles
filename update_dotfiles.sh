@@ -32,6 +32,10 @@ cp $homeDirectory/.ssh/bastion.sh \
 brew list --formula -1 > brew_formulas.txt
 brew list --casks -1 > brew_casks.txt
 
+# https://apple.stackexchange.com/a/279078
+# for i in $(cat brew_formulas.txt); do; brew install "$i"; done
+# for i in $(cat brew_casks.txt); do; brew install "$i"; done
+
 printf "To import exported extensions\n\n\n" > vscode_extensions.txt
 code --list-extensions | xargs -L 1 echo code --install-extension >> vscode_extensions.txt
 
