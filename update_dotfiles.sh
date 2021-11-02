@@ -45,6 +45,6 @@ code --list-extensions | xargs -L 1 echo code --install-extension >> vscode_exte
 # https://medium.com/@ratchada.jududom/how-to-ssh-iterm2-with-password-manager-576b0452b493
 
 # for backing up intellij settings - https://gist.github.com/jimzhan/529aa82465549043d883f739e9e93701
-cp ~/Library/Application\ Support/JetBrains/IntelliJIdea2021.1/settings.zip intellij_settings.zip
+# manually export all the settings for intellij > File > Manage IDE Settings > Export
 
 git add . && git commit -m "Update dotfile with automated script" && git push

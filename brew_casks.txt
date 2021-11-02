@@ -1,6 +1,5 @@
 android-platform-tools
 android-sdk
 dozer
-minikube
 rar
 virtualbox
