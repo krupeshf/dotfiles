@@ -42,6 +42,7 @@ code --list-extensions | xargs -L 1 echo code --install-extension >> vscode_exte
 # for vscode, look at cleaner options - https://github.com/codebling/vs-code-default-keybindings
 
 # for iterm profiles -->> Preferences > Profiles > Default > Other Actions > Save Profile as JSON
+# https://medium.com/@ratchada.jududom/how-to-ssh-iterm2-with-password-manager-576b0452b493
 
 # for backing up intellij settings - https://gist.github.com/jimzhan/529aa82465549043d883f739e9e93701
 cp ~/Library/Application\ Support/JetBrains/IntelliJIdea2021.1/settings.zip intellij_settings.zip
