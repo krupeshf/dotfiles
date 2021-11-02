@@ -9,7 +9,7 @@ fi
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH="/Users/krupeshf/.oh-my-zsh"
+export ZSH="/Users/krupesh.faldu/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -124,6 +124,8 @@ export EDITOR='vim'
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+source ~/powerlevel10k/powerlevel10k.zsh-theme
+
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
@@ -142,7 +144,7 @@ set -o vi
 
 # https://iterm2.com/documentation-shell-integration.html
 # curl -L https://iterm2.com/shell_integration/zsh -o ~/.iterm2_shell_integration.zsh
-source ~/.iterm2_shell_integration.zsh
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
 ################################################################################
 ##### AUTO COMPLETIONS #####
@@ -183,9 +185,6 @@ export NVM_DIR="$HOME/.nvm"
 
 # Making go path inside home folder
 export GOPATH=~/go
-
-# Export JAVA_HOME
-export JAVA_HOME=`/usr/libexec/java_home`
 
 # Add nod_modules to executable path - this way all the modules installed in the application can be run directly
 export PATH=$PATH:./node_modules/.bin
@@ -401,3 +400,8 @@ tf_check() {
     echo "Running terraform plan..."
     terraform plan
 }
+
+# https://stackoverflow.com/questions/52524112/how-do-i-install-java-on-mac-osx-allowing-version-switching/52524114#52524114
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="$HOME/.sdkman"
+[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
