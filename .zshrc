@@ -88,7 +88,7 @@ plugins=(
   mvn
   node
   npm
-  osx
+  macos
   pip
   python
   gcloud
