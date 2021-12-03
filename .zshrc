@@ -401,6 +401,41 @@ tf_check() {
     terraform plan
 }
 
+get_resources() {
+    case $1 in
+        "dev")
+            for i in $(kdev api-resources --verbs=list --namespaced -o name | grep -v "events.events.k8s.io" | grep -v "events" | sort | uniq); do
+                echo "Resource:" $i " namespace: " $2
+                kdev -n ${2} get ${i}
+            done
+            ;;
+        ":ci")
+            for i in $(kdevci api-resources --verbs=list --namespaced -o name | grep -v "events.events.k8s.io" | grep -v "events" | sort | uniq); do
+                echo "Resource:" $i " namespace: " $2
+                kdev -n ${2} get ${i}
+            done
+            ;;
+        "admin")
+            for i in $(kadmin api-resources --verbs=list --namespaced -o name | grep -v "events.events.k8s.io" | grep -v "events" | sort | uniq); do
+                echo "Resource:" $i " namespace: " $2
+                kdev -n ${2} get ${i}
+            done
+            ;;
+        "prod")
+            for i in $(kprod api-resources --verbs=list --namespaced -o name | grep -v "events.events.k8s.io" | grep -v "events" | sort | uniq); do
+                echo "Resource:" $i " namespace: " $2
+                kdev -n ${2} get ${i}
+            done
+            ;;
+        "sandbox")
+            for i in $(ksandbox api-resources --verbs=list --namespaced -o name | grep -v "events.events.k8s.io" | grep -v "events" | sort | uniq); do
+                echo "Resource:" $i " namespace: " $2
+                kdev -n ${2} get ${i}
+            done
+            ;;
+    esac
+}
+
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/Users/krupesh.faldu/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/krupesh.faldu/google-cloud-sdk/path.zsh.inc'; fi
 

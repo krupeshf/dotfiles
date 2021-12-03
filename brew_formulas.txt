@@ -11,6 +11,8 @@ ca-certificates
 cairo
 check
 chrome-cli
+cjson
+cmocka
 coreutils
 dav1d
 docbook
@@ -18,6 +20,7 @@ docbook-xsl
 eksctl
 elasticsearch
 expect
+ffmpeg
 flac
 flyway
 fontconfig
@@ -62,6 +65,7 @@ jpeg
 jpeg-xl
 jq
 k9s
+krb5
 kubectx
 kubernetes-cli
 lame
@@ -86,6 +90,7 @@ libomp
 libpng
 libpthread-stubs
 librdkafka
+librist
 librsvg
 libsamplerate
 libsndfile
@@ -113,6 +118,7 @@ lzlib
 lzo
 m4
 maven
+mbedtls
 memcached
 minikube
 mpdecimal
@@ -145,6 +151,7 @@ percona-toolkit
 pinentry
 pixman
 pkg-config
+postgresql
 python@3.10
 python@3.8
 python@3.9
@@ -184,5 +191,6 @@ yarn
 youtube-dl
 yq
 yubico-piv-tool
+zeromq
 zimg
 zstd
