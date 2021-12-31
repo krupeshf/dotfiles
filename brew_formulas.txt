@@ -20,7 +20,6 @@ docbook-xsl
 eksctl
 elasticsearch
 expect
-ffmpeg
 flac
 flyway
 fontconfig
@@ -54,6 +53,7 @@ gts
 guile
 harfbuzz
 helm
+hyperkit
 icu4c
 imagemagick
 imath
@@ -164,6 +164,7 @@ rubberband
 sdl2
 shared-mime-info
 six
+skaffold
 snappy
 speex
 sqlite

@@ -6,6 +6,7 @@
 [alias]
 	hc = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --
 	hd = log -p --ignore-space-change
+	hdf = log -p --ignore-space-change --follow
 	hf = log --name-only --oneline --graph --decorate
 	co = commit -v
 	coa = commit -v --amend
