@@ -61,6 +61,7 @@ ipcalc
 jasper
 jbig2dec
 jemalloc
+jenv
 jpeg
 jpeg-xl
 jq

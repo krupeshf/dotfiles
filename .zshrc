@@ -212,6 +212,12 @@ export TF_CLI_CONFIG_FILE=~/terraform.rc
 
 export CUS_WORKSPACE=$HOME/code/customers-microservice
 
+# https://www.sublimetext.com/docs/command_line.html#mac
+export PATH="/Applications/Sublime Text.app/Contents/SharedSupport/bin:$PATH"
+
+# https://krew.sigs.k8s.io/docs/user-guide/setup/install/
+export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
+
 ################################################################################
 ##### ALIASES #####
 
@@ -255,11 +261,11 @@ alias kadmin="https_proxy=admin-us-west1-cluster-privoxy.ilb.admin.pdx01.clover.
 alias kprod="https_proxy=prod-us-central1-cluster-privoxy.ilb.prod.dsm06.clover.network:8118 kubectl --context gke_clover-prod-kubernetes_us-central1_prod-us-central1-cluster"
 
 # https://github.corp.clover.com/clover/gke-cluster-manager/wiki/Connecting-to-clusters#steps-for-k9s-via-privoxy
-alias k9ssandbox='gcloud --project clover-sandbox-kubernetes container clusters get-credentials sandbox-us-west1-cluster --region us-west1 && https_proxy=sandbox-us-west1-cluster-privoxy.ilb.sbx.pdx14.clover.network:8118 k9s --context gke_clover-sandbox-kubernetes_us-west1_sandbox-us-west1-cluster'
-alias k9sdev="gcloud --project clover-dev-kubernetes container clusters get-credentials dev-us-west1-cluster --region us-west1 && https_proxy=dev-us-west1-cluster-privoxy.ilb.dev.pdx13.clover.network:8118 k9s --context gke_clover-dev-kubernetes_us-west1_dev-us-west1-cluster"
-alias k9sdevci="https_proxy=dev-ci-us-west1-cluster-privoxy.ilb.dev.pdx13.clover.network:8118 k9s --context gke_clover-dev-kubernetes_us-west1_dev-ci-us-west1-cluster"
-alias k9sadmin="gcloud --project clover-admin-plane container clusters get-credentials admin-us-west1-cluster --region us-west1 && https_proxy=admin-us-west1-cluster-privoxy.ilb.admin.pdx01.clover.network:8118 k9s --context gke_clover-admin-plane_us-west1_admin-us-west1-cluster"
-alias k9sprod="gcloud --project clover-prod-kubernetes container clusters get-credentials prod-us-central1-cluster --region us-central1 && https_proxy=prod-us-central1-cluster-privoxy.ilb.prod.dsm06.clover.network:8118 k9s --context gke_clover-prod-kubernetes_us-central1_prod-us-central1-cluster"
+alias k9ssandbox='k9s --context gke_clover-sandbox-kubernetes_us-west1_sandbox-us-west1-cluster'
+alias k9sdev="k9s --context gke_clover-dev-kubernetes_us-west1_dev-us-west1-cluster"
+alias k9sdevci="k9s --context gke_clover-dev-kubernetes_us-west1_dev-ci-us-west1-cluster"
+alias k9sadmin="k9s --context gke_clover-admin-plane_us-west1_admin-us-west1-cluster"
+alias k9sprod="k9s --context gke_clover-prod-kubernetes_us-central1_prod-us-central1-cluster"
 
 # create immediate files if required and cd into that directory
 function mkdr
@@ -295,6 +301,18 @@ tfcleanplan() {
   fi
   # there is an escape character after s/ and before \[, sometimes copy paste does not take it so insert that character in your profile using Ctrl+V and then Esc key
   sed -i '' -e 's/\[[0-9;]*[a-zA-Z]//g' "$terraformColoredPlanFileName" && subl "$terraformColoredPlanFileName"
+}
+
+# clean terraform state files for easier reading
+tfcleanstate() {
+  # if file name is not passed then just take the latest file
+  if [[ ( -z $1 ) ]]; then
+    terraformColoredStateFileName=`ls -larth1 $HOME/downloads/sv-*.tfstate | tail -1`
+  else
+    terraformColoredStateFileName=$1
+  fi
+  # there is an escape character after s/ and before \[, sometimes copy paste does not take it so insert that character in your profile using Ctrl+V and then Esc key
+  sed -i '' -e 's/\[[0-9;]*[a-zA-Z]//g' "$terraformColoredStateFileName" && subl "$terraformColoredStateFileName"
 }
 
 jenkins_lint() {
@@ -348,20 +366,20 @@ clear_docker() {
 # Get cluster credentials
 get_credentials() {
     case $1 in
+        "sandbox")
+            gcloud --project clover-sandbox-kubernetes container clusters get-credentials sandbox-us-west1-cluster --region us-west1 && kubectl config set clusters.gke_clover-sandbox-kubernetes_us-west1_sandbox-us-west1-cluster.proxy-url http://sandbox-us-west1-cluster-privoxy.ilb.sbx.pdx14.clover.network:8118
+            ;;
         "dev")
-            gcloud --project clover-dev-kubernetes container clusters get-credentials dev-us-west1-cluster --region us-west1
+            gcloud --project clover-dev-kubernetes container clusters get-credentials dev-us-west1-cluster --region us-west1 && kubectl config set clusters.gke_clover-dev-kubernetes_us-west1_dev-us-west1-cluster.proxy-url http://dev-us-west1-cluster-privoxy.ilb.dev.pdx13.clover.network:8118
             ;;
         "devci")
-            gcloud --project clover-dev-kubernetes container clusters get-credentials dev-ci-us-west1-cluster --region us-west1
+            gcloud --project clover-dev-kubernetes container clusters get-credentials dev-ci-us-west1-cluster --region us-west1 && kubectl config set clusters.gke_clover-dev-kubernetes_us-west1_dev-ci-us-west1-cluster.proxy-url http://dev-ci-us-west1-cluster-privoxy.ilb.dev.pdx13.clover.network:8118
             ;;
         "admin")
-            gcloud --project clover-admin-plane container clusters get-credentials admin-us-west1-cluster --region us-west1
+            gcloud --project clover-admin-plane container clusters get-credentials admin-us-west1-cluster --region us-west1 && kubectl config set clusters.gke_clover-admin-plane_us-west1_admin-us-west1-cluster.proxy-url http://admin-us-west1-cluster-privoxy.ilb.admin.pdx01.clover.network:8118
             ;;
         "prod")
-            gcloud --project clover-prod-kubernetes container clusters get-credentials prod-us-central1-cluster --region us-central1
-            ;;
-        "sandbox")
-            gcloud --project clover-sandbox-kubernetes container clusters get-credentials sandbox-us-west1-cluster --region us-west1
+            gcloud --project clover-prod-kubernetes container clusters get-credentials prod-us-central1-cluster --region us-central1 && kubectl config set clusters.gke_clover-prod-kubernetes_us-central1_prod-us-central1-cluster.proxy-url http://prod-us-central1-cluster-privoxy.ilb.prod.dsm06.clover.network:8118
             ;;
     esac
 }
@@ -445,4 +463,3 @@ if [ -f '/Users/krupesh.faldu/google-cloud-sdk/completion.zsh.inc' ]; then . '/U
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
-
