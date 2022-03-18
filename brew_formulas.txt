@@ -74,10 +74,12 @@ leptonica
 libass
 libassuan
 libbluray
+libcbor
 libde265
 libev
 libevent
 libffi
+libfido2
 libgcrypt
 libgpg-error
 libheif
@@ -183,6 +185,7 @@ vault
 watch
 webp
 wget
+wrk
 x264
 x265
 xmlto

@@ -160,6 +160,7 @@ test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell
 # terraform -uninstall-autocomplete
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /usr/local/Cellar/tfenv/2.2.2/versions/0.12.31/terraform terraform
+complete -o nospace -C /usr/local/Cellar/tfenv/2.2.2/versions/0.14.7/terraform terraform
 
 # https://www.vaultproject.io/docs/commands#autocompletion
 # vault -autocomplete-install
