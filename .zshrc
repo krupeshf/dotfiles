@@ -169,6 +169,9 @@ complete -o nospace -C /usr/local/bin/vault vault
 # https://helm.sh/docs/helm/helm_completion_zsh/
 source <(helm completion zsh)
 
+# https://argo-cd.readthedocs.io/en/stable/user-guide/commands/argocd_completion/
+source <(argocd completion zsh)
+
 # https://kubernetes.io/docs/tasks/tools/install-kubectl-macos/#optional-kubectl-configurations-and-plugins
 source <(kubectl completion zsh)
 complete -F __start_kubectl ksandbox
@@ -255,11 +258,11 @@ alias cleanupZshHistory="awk '!seen[$0]++' ~/.zsh_history | awk '!/^(git|cd|cat|
 alias yubinit='eval `killall ssh-agent;noglob ssh-agent -s -P /usr/local/lib/*,/usr/local/Cellar/yubico-piv-tool/*/lib/*.dylib`;ssh-add -s /usr/local/lib/libykcs11.dylib'
 
 # https://github.corp.clover.com/clover/gke-cluster-manager/wiki/Connecting-to-clusters#steps-for-kubectl-via-privoxy
-alias ksandbox='https_proxy=sandbox-us-west1-cluster-privoxy.ilb.sbx.pdx14.clover.network:8118 kubectl --context gke_clover-sandbox-kubernetes_us-west1_sandbox-us-west1-cluster'
-alias kdev="https_proxy=dev-us-west1-cluster-privoxy.ilb.dev.pdx13.clover.network:8118 kubectl --context gke_clover-dev-kubernetes_us-west1_dev-us-west1-cluster"
-alias kdevci="https_proxy=dev-ci-us-west1-cluster-privoxy.ilb.dev.pdx13.clover.network:8118 kubectl --context gke_clover-dev-kubernetes_us-west1_dev-ci-us-west1-cluster"
-alias kadmin="https_proxy=admin-us-west1-cluster-privoxy.ilb.admin.pdx01.clover.network:8118 kubectl --context gke_clover-admin-plane_us-west1_admin-us-west1-cluster"
-alias kprod="https_proxy=prod-us-central1-cluster-privoxy.ilb.prod.dsm06.clover.network:8118 kubectl --context gke_clover-prod-kubernetes_us-central1_prod-us-central1-cluster"
+alias ksandbox='kubectl --context gke_clover-sandbox-kubernetes_us-west1_sandbox-us-west1-cluster'
+alias kdev="kubectl --context gke_clover-dev-kubernetes_us-west1_dev-us-west1-cluster"
+alias kdevci="kubectl --context gke_clover-dev-kubernetes_us-west1_dev-ci-us-west1-cluster"
+alias kadmin="kubectl --context gke_clover-admin-plane_us-west1_admin-us-west1-cluster"
+alias kprod="kubectl --context gke_clover-prod-kubernetes_us-central1_prod-us-central1-cluster"
 
 # https://github.corp.clover.com/clover/gke-cluster-manager/wiki/Connecting-to-clusters#steps-for-k9s-via-privoxy
 alias k9ssandbox='k9s --context gke_clover-sandbox-kubernetes_us-west1_sandbox-us-west1-cluster'
@@ -267,6 +270,12 @@ alias k9sdev="k9s --context gke_clover-dev-kubernetes_us-west1_dev-us-west1-clus
 alias k9sdevci="k9s --context gke_clover-dev-kubernetes_us-west1_dev-ci-us-west1-cluster"
 alias k9sadmin="k9s --context gke_clover-admin-plane_us-west1_admin-us-west1-cluster"
 alias k9sprod="k9s --context gke_clover-prod-kubernetes_us-central1_prod-us-central1-cluster"
+
+# https://github.corp.clover.com/clover/gke-cluster-manager/wiki/Connecting-to-clusters#steps-for-helm-via-privoxy
+alias hsandbox="helm --kube-context gke_clover-sandbox-kubernetes_us-west1_sandbox-us-west1-cluster"
+alias hdev="helm --kube-context gke_clover-dev-kubernetes_us-west1_dev-us-west1-cluster"
+alias hadmin="helm --kube-context gke_clover-admin-plane_us-west1_admin-us-west1-cluster"
+alias hprod="helm --kube-context gke_clover-prod-kubernetes_us-central1_prod-us-central1-cluster"
 
 # create immediate files if required and cd into that directory
 function mkdr

@@ -1,5 +1,6 @@
 adns
 aom
+argocd
 aws-iam-authenticator
 awscli
 bash
