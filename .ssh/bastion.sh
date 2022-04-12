@@ -7,4 +7,9 @@ availableBastionHosts=$(grep ${dataCenter} ~/.ssh/bastions.txt)
 randomBastionHost=${availableBastionHosts[$RANDOM % ${#availableBastionHosts[@]}]}
 
 #>&2  echo "${2:+-W $1:$2} -A $onehost"
-ssh ${2:+-W $1:$2} $randomBastionHost
+
+# actual command
+# ssh ${2:+-W $1:$2} $randomBastionHost
+
+# static bastion host
+ssh ${2:+-W $1:$2} bastion01.admin.pdx01.clover.network

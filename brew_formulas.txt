@@ -6,6 +6,7 @@ awscli
 bash
 bash-completion
 bdw-gc
+brightness
 brotli
 c-ares
 ca-certificates
@@ -70,6 +71,7 @@ k9s
 krb5
 kubectx
 kubernetes-cli
+kustomize
 lame
 leptonica
 libass

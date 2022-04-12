@@ -168,6 +168,7 @@ complete -o nospace -C /usr/local/bin/vault vault
 
 # https://helm.sh/docs/helm/helm_completion_zsh/
 source <(helm completion zsh)
+complete -F __start_helm hnaprod
 
 # https://argo-cd.readthedocs.io/en/stable/user-guide/commands/argocd_completion/
 source <(argocd completion zsh)
@@ -179,6 +180,7 @@ complete -F __start_kubectl kdev
 complete -F __start_kubectl kdevci
 complete -F __start_kubectl kadmin
 complete -F __start_kubectl kprod
+complete -F __start_kubectl knaprod
 ################################################################################
 ##### EXPORTS #####
 
@@ -263,6 +265,7 @@ alias kdev="kubectl --context gke_clover-dev-kubernetes_us-west1_dev-us-west1-cl
 alias kdevci="kubectl --context gke_clover-dev-kubernetes_us-west1_dev-ci-us-west1-cluster"
 alias kadmin="kubectl --context gke_clover-admin-plane_us-west1_admin-us-west1-cluster"
 alias kprod="kubectl --context gke_clover-prod-kubernetes_us-central1_prod-us-central1-cluster"
+alias knaprod="kubectl --context gke_clover-prod-kubernetes_us-central1_na-prod-us-central1-cluster"
 
 # https://github.corp.clover.com/clover/gke-cluster-manager/wiki/Connecting-to-clusters#steps-for-k9s-via-privoxy
 alias k9ssandbox='k9s --context gke_clover-sandbox-kubernetes_us-west1_sandbox-us-west1-cluster'
@@ -270,12 +273,14 @@ alias k9sdev="k9s --context gke_clover-dev-kubernetes_us-west1_dev-us-west1-clus
 alias k9sdevci="k9s --context gke_clover-dev-kubernetes_us-west1_dev-ci-us-west1-cluster"
 alias k9sadmin="k9s --context gke_clover-admin-plane_us-west1_admin-us-west1-cluster"
 alias k9sprod="k9s --context gke_clover-prod-kubernetes_us-central1_prod-us-central1-cluster"
+alias k9snaprod="k9s --context gke_clover-prod-kubernetes_us-central1_na-prod-us-central1-cluster"
 
 # https://github.corp.clover.com/clover/gke-cluster-manager/wiki/Connecting-to-clusters#steps-for-helm-via-privoxy
 alias hsandbox="helm --kube-context gke_clover-sandbox-kubernetes_us-west1_sandbox-us-west1-cluster"
 alias hdev="helm --kube-context gke_clover-dev-kubernetes_us-west1_dev-us-west1-cluster"
 alias hadmin="helm --kube-context gke_clover-admin-plane_us-west1_admin-us-west1-cluster"
 alias hprod="helm --kube-context gke_clover-prod-kubernetes_us-central1_prod-us-central1-cluster"
+alias hnaprod="helm --kube-context gke_clover-prod-kubernetes_us-central1_prod-us-central1-cluster"
 
 # create immediate files if required and cd into that directory
 function mkdr
@@ -390,6 +395,9 @@ get_credentials() {
             ;;
         "prod")
             gcloud --project clover-prod-kubernetes container clusters get-credentials prod-us-central1-cluster --region us-central1 && kubectl config set clusters.gke_clover-prod-kubernetes_us-central1_prod-us-central1-cluster.proxy-url http://prod-us-central1-cluster-privoxy.ilb.prod.dsm06.clover.network:8118
+            ;;
+        "naprod")
+            gcloud --project clover-prod-kubernetes container clusters get-credentials na-prod-us-central1-cluster --region us-central1 && kubectl config set clusters.gke_clover-prod-kubernetes_us-central1_na-prod-us-central1-cluster.proxy-url http://na-prod-us-central1-cluster-privoxy.ilb.prod.dsm06.clover.network:8118
             ;;
     esac
 }
