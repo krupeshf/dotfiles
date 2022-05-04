@@ -19,6 +19,8 @@ coreutils
 dav1d
 docbook
 docbook-xsl
+docker
+dockerize
 eksctl
 elasticsearch
 expect
@@ -60,6 +62,7 @@ icu4c
 imagemagick
 imath
 ipcalc
+istioctl
 jasper
 jbig2dec
 jemalloc

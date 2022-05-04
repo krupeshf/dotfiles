@@ -181,6 +181,9 @@ complete -F __start_kubectl kdevci
 complete -F __start_kubectl kadmin
 complete -F __start_kubectl kprod
 complete -F __start_kubectl knaprod
+
+# https://istio.io/latest/docs/ops/diagnostic-tools/istioctl/#enabling-auto-completion
+source <(istioctl completion zsh)
 ################################################################################
 ##### EXPORTS #####
 
@@ -478,6 +481,17 @@ if [ -f '/Users/krupesh.faldu/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/k
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/krupesh.faldu/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/krupesh.faldu/google-cloud-sdk/completion.zsh.inc'; fi
 
-#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
-export SDKMAN_DIR="$HOME/.sdkman"
-[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+# Enable ZSH auto-complete
+autoload -U +X compinit; compinit
+
+# Initialize jenv
+eval "$(jenv init -)"
+
+# Add MySQL to Path
+export PATH="$PATH:/opt/homebrew/opt/mysql-client/bin"
+
+# Add Krew to Path
+export PATH="$HOME/.krew/bin:$PATH"
+
+# Point Docker to Minikube
+eval $(minikube -p minikube docker-env)
