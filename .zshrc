@@ -475,6 +475,28 @@ get_resources() {
     esac
 }
 
+# https://www.openldap.org/software/man.cgi?query=ldap.conf#end
+ldap_getallgroups(){
+  ldapsearch -LLL -xD "uid=$USER,ou=people,dc=clover,dc=com" -b "dc=clover,dc=com" -H ldaps://corpldap-master01.corp.pdx02.clover.network -W "(|(&(objectclass=posixgroup)(gidnumber>=10000))(objectclass=groupofuniquenames))" cn | grep 'cn:' | sed 's/cn: //g' | sort
+}
+
+ldap_getallmygroups(){
+  ldapsearch -LLL -xD "uid=${USER},ou=people,dc=clover,dc=com" -b "dc=clover,dc=com" -H ldaps://corpldap-master01.corp.pdx02.clover.network -W "(&(|(&(objectclass=posixgroup)(gidnumber>=10000))(objectclass=groupofuniquenames))(|(memberuid:caseignoreia5match:=${USER})(uniquemember=uid=${USER},ou=people,dc=clover,dc=com)))" cn | grep 'cn:' | sed 's/cn: //g' | sort
+}
+
+ldap_getallgroupsofuser(){
+  ldapsearch -LLL -xD "uid=$USER,ou=people,dc=clover,dc=com" -b "dc=clover,dc=com" -H ldaps://corpldap-master01.corp.pdx02.clover.network -W "(&(|(&(objectclass=posixgroup)(gidnumber>=10000))(objectclass=groupofuniquenames))(|(memberuid:caseignoreia5match:=${1})(uniquemember=uid=${1},ou=people,dc=clover,dc=com)))" cn | grep 'cn:' | sed 's/cn: //g' | sort
+}
+
+ldap_getallusersofgroup(){
+  ldapsearch -LLL -xD "uid=$USER,ou=people,dc=clover,dc=com" -b "dc=clover,dc=com" -H ldaps://corpldap-master01.corp.pdx02.clover.network -W "(cn=${1})" memberUid uniqueMember | egrep 'memberUid|uniqueMember' | sed 's/memberUid: //g' | sed -E 's/uniqueMember: uid=(.*),ou=people,dc=clover,dc=com/\1/g' | sort
+}
+
+ldap_getmyldapdetails(){
+  ldapsearch -LLL -xD "uid=$USER,ou=people,dc=clover,dc=com" -b "dc=clover,dc=com" -H ldaps://corpldap-master01.corp.pdx02.clover.network -W "(uid=$USER)"
+}
+
+
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/Users/krupesh.faldu/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/krupesh.faldu/google-cloud-sdk/path.zsh.inc'; fi
 
@@ -495,3 +517,4 @@ export PATH="$HOME/.krew/bin:$PATH"
 
 # Point Docker to Minikube
 eval $(minikube -p minikube docker-env)
+
