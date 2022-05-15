@@ -285,6 +285,8 @@ alias hadmin="helm --kube-context gke_clover-admin-plane_us-west1_admin-us-west1
 alias hprod="helm --kube-context gke_clover-prod-kubernetes_us-central1_prod-us-central1-cluster"
 alias hnaprod="helm --kube-context gke_clover-prod-kubernetes_us-central1_prod-us-central1-cluster"
 
+alias rp="ssh 'pi@192.168.86.230'"
+
 # create immediate files if required and cd into that directory
 function mkdr
 {
@@ -517,4 +519,3 @@ export PATH="$HOME/.krew/bin:$PATH"
 
 # Point Docker to Minikube
 eval $(minikube -p minikube docker-env)
-
