@@ -1,6 +1,7 @@
 adns
 aom
 argocd
+autoconf
 aws-iam-authenticator
 awscli
 bash
@@ -61,6 +62,7 @@ hyperkit
 icu4c
 imagemagick
 imath
+insights
 ipcalc
 istioctl
 jasper
@@ -72,6 +74,7 @@ jpeg-xl
 jq
 k9s
 krb5
+krew
 kubectx
 kubernetes-cli
 kustomize
@@ -79,6 +82,7 @@ lame
 leptonica
 libass
 libassuan
+libavif
 libbluray
 libcbor
 libde265
@@ -133,6 +137,7 @@ minikube
 mpdecimal
 mpfr
 mysql-client
+mysql-client@5.7
 mysql@5.6
 nats-server
 ncurses
@@ -147,6 +152,8 @@ opa
 opencore-amr
 openexr
 openjdk
+openjdk@17
+openjdk@8
 openjpeg
 openssl@1.1
 opus
@@ -161,6 +168,7 @@ pinentry
 pixman
 pkg-config
 postgresql
+pyenv
 python@3.10
 python@3.8
 python@3.9

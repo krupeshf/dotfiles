@@ -519,3 +519,7 @@ export PATH="$HOME/.krew/bin:$PATH"
 
 # Point Docker to Minikube
 eval $(minikube -p minikube docker-env)
+
+# Use GKE specific kubernetes provider
+# https://cloud.google.com/blog/products/containers-kubernetes/kubectl-auth-changes-in-gke
+export USE_GKE_GCLOUD_AUTH_PLUGIN="True"
