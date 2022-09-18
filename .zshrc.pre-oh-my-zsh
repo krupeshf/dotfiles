@@ -88,7 +88,7 @@ plugins=(
   mvn
   node
   npm
-  osx
+  macos
   pip
   python
   gcloud
@@ -124,6 +124,8 @@ export EDITOR='vim'
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+source ~/powerlevel10k/powerlevel10k.zsh-theme
+
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
@@ -142,7 +144,7 @@ set -o vi
 
 # https://iterm2.com/documentation-shell-integration.html
 # curl -L https://iterm2.com/shell_integration/zsh -o ~/.iterm2_shell_integration.zsh
-source ~/.iterm2_shell_integration.zsh
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
 ################################################################################
 ##### AUTO COMPLETIONS #####
@@ -158,6 +160,7 @@ source ~/.iterm2_shell_integration.zsh
 # terraform -uninstall-autocomplete
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /usr/local/Cellar/tfenv/2.2.2/versions/0.12.31/terraform terraform
+complete -o nospace -C /usr/local/Cellar/tfenv/2.2.2/versions/0.14.7/terraform terraform
 
 # https://www.vaultproject.io/docs/commands#autocompletion
 # vault -autocomplete-install
@@ -165,6 +168,10 @@ complete -o nospace -C /usr/local/bin/vault vault
 
 # https://helm.sh/docs/helm/helm_completion_zsh/
 source <(helm completion zsh)
+complete -F __start_helm hnaprod
+
+# https://argo-cd.readthedocs.io/en/stable/user-guide/commands/argocd_completion/
+source <(argocd completion zsh)
 
 # https://kubernetes.io/docs/tasks/tools/install-kubectl-macos/#optional-kubectl-configurations-and-plugins
 source <(kubectl completion zsh)
@@ -173,6 +180,10 @@ complete -F __start_kubectl kdev
 complete -F __start_kubectl kdevci
 complete -F __start_kubectl kadmin
 complete -F __start_kubectl kprod
+complete -F __start_kubectl knaprod
+
+# https://istio.io/latest/docs/ops/diagnostic-tools/istioctl/#enabling-auto-completion
+source <(istioctl completion zsh)
 ################################################################################
 ##### EXPORTS #####
 
@@ -183,9 +194,6 @@ export NVM_DIR="$HOME/.nvm"
 
 # Making go path inside home folder
 export GOPATH=~/go
-
-# Export JAVA_HOME
-export JAVA_HOME=`/usr/libexec/java_home`
 
 # Add nod_modules to executable path - this way all the modules installed in the application can be run directly
 export PATH=$PATH:./node_modules/.bin
@@ -212,6 +220,12 @@ export CDPATH=.:~:~/code:~/src/apps
 export TF_CLI_CONFIG_FILE=~/terraform.rc
 
 export CUS_WORKSPACE=$HOME/code/customers-microservice
+
+# https://www.sublimetext.com/docs/command_line.html#mac
+export PATH="/Applications/Sublime Text.app/Contents/SharedSupport/bin:$PATH"
+
+# https://krew.sigs.k8s.io/docs/user-guide/setup/install/
+export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 
 ################################################################################
 ##### ALIASES #####
@@ -249,18 +263,29 @@ alias cleanupZshHistory="awk '!seen[$0]++' ~/.zsh_history | awk '!/^(git|cd|cat|
 alias yubinit='eval `killall ssh-agent;noglob ssh-agent -s -P /usr/local/lib/*,/usr/local/Cellar/yubico-piv-tool/*/lib/*.dylib`;ssh-add -s /usr/local/lib/libykcs11.dylib'
 
 # https://github.corp.clover.com/clover/gke-cluster-manager/wiki/Connecting-to-clusters#steps-for-kubectl-via-privoxy
-alias ksandbox='https_proxy=sandbox-us-west1-cluster-privoxy.ilb.sbx.pdx14.clover.network:8118 kubectl --context gke_clover-sandbox_us-west1_sandbox-us-west1-cluster'
-alias kdev="https_proxy=dev-us-west1-cluster-privoxy.ilb.dev.pdx13.clover.network:8118 kubectl --context gke_clover-dev-kubernetes_us-west1_dev-us-west1-cluster"
-alias kdevci="https_proxy=dev-ci-us-west1-cluster-privoxy.ilb.dev.pdx13.clover.network:8118 kubectl --context gke_clover-dev-kubernetes_us-west1_dev-ci-us-west1-cluster"
-alias kadmin="https_proxy=admin-us-west1-cluster-privoxy.ilb.admin.pdx01.clover.network:8118 kubectl --context gke_clover-admin-plane_us-west1_admin-us-west1-cluster"
-alias kprod="https_proxy=prod-us-central1-cluster-privoxy.ilb.prod.dsm06.clover.network:8118 kubectl --context gke_clover-prod-kubernetes_us-central1_prod-us-central1-cluster"
+alias ksandbox='kubectl --context gke_clover-sandbox-kubernetes_us-west1_sandbox-us-west1-cluster'
+alias kdev="kubectl --context gke_clover-dev-kubernetes_us-west1_dev-us-west1-cluster"
+alias kdevci="kubectl --context gke_clover-dev-kubernetes_us-west1_dev-ci-us-west1-cluster"
+alias kadmin="kubectl --context gke_clover-admin-plane_us-west1_admin-us-west1-cluster"
+alias kprod="kubectl --context gke_clover-prod-kubernetes_us-central1_prod-us-central1-cluster"
+alias knaprod="kubectl --context gke_clover-prod-kubernetes_us-central1_na-prod-us-central1-cluster"
 
 # https://github.corp.clover.com/clover/gke-cluster-manager/wiki/Connecting-to-clusters#steps-for-k9s-via-privoxy
-alias k9ssandbox='gcloud --project clover-sandbox-kubernetes container clusters get-credentials sandbox-us-west1-cluster --region us-west1 && https_proxy=sandbox-us-west1-cluster-privoxy.ilb.sbx.pdx14.clover.network:8118 k9s --context gke_clover-sandbox_us-west1_sandbox-us-west1-cluster'
-alias k9sdev="gcloud --project clover-dev-kubernetes container clusters get-credentials dev-us-west1-cluster --region us-west1 && https_proxy=dev-us-west1-cluster-privoxy.ilb.dev.pdx13.clover.network:8118 k9s --context gke_clover-dev-kubernetes_us-west1_dev-us-west1-cluster"
-alias k9sdevci="https_proxy=dev-ci-us-west1-cluster-privoxy.ilb.dev.pdx13.clover.network:8118 k9s --context gke_clover-dev-kubernetes_us-west1_dev-ci-us-west1-cluster"
-alias k9sadmin="gcloud --project clover-admin-plane container clusters get-credentials admin-us-west1-cluster --region us-west1 && https_proxy=admin-us-west1-cluster-privoxy.ilb.admin.pdx01.clover.network:8118 k9s --context gke_clover-admin-plane_us-west1_admin-us-west1-cluster"
-alias k9sprod="gcloud --project clover-prod-kubernetes container clusters get-credentials prod-us-central1-cluster --region us-central1 && https_proxy=prod-us-central1-cluster-privoxy.ilb.prod.dsm06.clover.network:8118 k9s --context gke_clover-prod-kubernetes_us-central1_prod-us-central1-cluster"
+alias k9ssandbox='k9s --context gke_clover-sandbox-kubernetes_us-west1_sandbox-us-west1-cluster'
+alias k9sdev="k9s --context gke_clover-dev-kubernetes_us-west1_dev-us-west1-cluster"
+alias k9sdevci="k9s --context gke_clover-dev-kubernetes_us-west1_dev-ci-us-west1-cluster"
+alias k9sadmin="k9s --context gke_clover-admin-plane_us-west1_admin-us-west1-cluster"
+alias k9sprod="k9s --context gke_clover-prod-kubernetes_us-central1_prod-us-central1-cluster"
+alias k9snaprod="k9s --context gke_clover-prod-kubernetes_us-central1_na-prod-us-central1-cluster"
+
+# https://github.corp.clover.com/clover/gke-cluster-manager/wiki/Connecting-to-clusters#steps-for-helm-via-privoxy
+alias hsandbox="helm --kube-context gke_clover-sandbox-kubernetes_us-west1_sandbox-us-west1-cluster"
+alias hdev="helm --kube-context gke_clover-dev-kubernetes_us-west1_dev-us-west1-cluster"
+alias hadmin="helm --kube-context gke_clover-admin-plane_us-west1_admin-us-west1-cluster"
+alias hprod="helm --kube-context gke_clover-prod-kubernetes_us-central1_prod-us-central1-cluster"
+alias hnaprod="helm --kube-context gke_clover-prod-kubernetes_us-central1_prod-us-central1-cluster"
+
+alias rp="ssh 'pi@192.168.86.230'"
 
 # create immediate files if required and cd into that directory
 function mkdr
@@ -296,6 +321,18 @@ tfcleanplan() {
   fi
   # there is an escape character after s/ and before \[, sometimes copy paste does not take it so insert that character in your profile using Ctrl+V and then Esc key
   sed -i '' -e 's/\[[0-9;]*[a-zA-Z]//g' "$terraformColoredPlanFileName" && subl "$terraformColoredPlanFileName"
+}
+
+# clean terraform state files for easier reading
+tfcleanstate() {
+  # if file name is not passed then just take the latest file
+  if [[ ( -z $1 ) ]]; then
+    terraformColoredStateFileName=`ls -larth1 $HOME/downloads/sv-*.tfstate | tail -1`
+  else
+    terraformColoredStateFileName=$1
+  fi
+  # there is an escape character after s/ and before \[, sometimes copy paste does not take it so insert that character in your profile using Ctrl+V and then Esc key
+  sed -i '' -e 's/\[[0-9;]*[a-zA-Z]//g' "$terraformColoredStateFileName" && subl "$terraformColoredStateFileName"
 }
 
 jenkins_lint() {
@@ -349,20 +386,23 @@ clear_docker() {
 # Get cluster credentials
 get_credentials() {
     case $1 in
+        "sandbox")
+            gcloud --project clover-sandbox-kubernetes container clusters get-credentials sandbox-us-west1-cluster --region us-west1 && kubectl config set clusters.gke_clover-sandbox-kubernetes_us-west1_sandbox-us-west1-cluster.proxy-url http://sandbox-us-west1-cluster-privoxy.ilb.sbx.pdx14.clover.network:8118
+            ;;
         "dev")
-            gcloud --project clover-dev-kubernetes container clusters get-credentials dev-us-west1-cluster --region us-west1
+            gcloud --project clover-dev-kubernetes container clusters get-credentials dev-us-west1-cluster --region us-west1 && kubectl config set clusters.gke_clover-dev-kubernetes_us-west1_dev-us-west1-cluster.proxy-url http://dev-us-west1-cluster-privoxy.ilb.dev.pdx13.clover.network:8118
             ;;
         "devci")
-            gcloud --project clover-dev-kubernetes container clusters get-credentials dev-ci-us-west1-cluster --region us-west1
+            gcloud --project clover-dev-kubernetes container clusters get-credentials dev-ci-us-west1-cluster --region us-west1 && kubectl config set clusters.gke_clover-dev-kubernetes_us-west1_dev-ci-us-west1-cluster.proxy-url http://dev-ci-us-west1-cluster-privoxy.ilb.dev.pdx13.clover.network:8118
             ;;
         "admin")
-            gcloud --project clover-admin-plane container clusters get-credentials admin-us-west1-cluster --region us-west1
+            gcloud --project clover-admin-plane container clusters get-credentials admin-us-west1-cluster --region us-west1 && kubectl config set clusters.gke_clover-admin-plane_us-west1_admin-us-west1-cluster.proxy-url http://admin-us-west1-cluster-privoxy.ilb.admin.pdx01.clover.network:8118
             ;;
         "prod")
-            gcloud --project clover-prod-kubernetes container clusters get-credentials prod-us-central1-cluster --region us-central1
+            gcloud --project clover-prod-kubernetes container clusters get-credentials prod-us-central1-cluster --region us-central1 && kubectl config set clusters.gke_clover-prod-kubernetes_us-central1_prod-us-central1-cluster.proxy-url http://prod-us-central1-cluster-privoxy.ilb.prod.dsm06.clover.network:8118
             ;;
-        "sandbox")
-            gcloud --project clover-sandbox-kubernetes container clusters get-credentials sandbox-us-west1-cluster --region us-west1
+        "naprod")
+            gcloud --project clover-prod-kubernetes container clusters get-credentials na-prod-us-central1-cluster --region us-central1 && kubectl config set clusters.gke_clover-prod-kubernetes_us-central1_na-prod-us-central1-cluster.proxy-url http://na-prod-us-central1-cluster-privoxy.ilb.prod.dsm06.clover.network:8118
             ;;
     esac
 }
@@ -401,3 +441,85 @@ tf_check() {
     echo "Running terraform plan..."
     terraform plan
 }
+
+get_resources() {
+    case $1 in
+        "dev")
+            for i in $(kdev api-resources --verbs=list --namespaced -o name | grep -v "events.events.k8s.io" | grep -v "events" | sort | uniq); do
+                echo "Resource:" $i " namespace: " $2
+                kdev -n ${2} get ${i}
+            done
+            ;;
+        ":ci")
+            for i in $(kdevci api-resources --verbs=list --namespaced -o name | grep -v "events.events.k8s.io" | grep -v "events" | sort | uniq); do
+                echo "Resource:" $i " namespace: " $2
+                kdev -n ${2} get ${i}
+            done
+            ;;
+        "admin")
+            for i in $(kadmin api-resources --verbs=list --namespaced -o name | grep -v "events.events.k8s.io" | grep -v "events" | sort | uniq); do
+                echo "Resource:" $i " namespace: " $2
+                kdev -n ${2} get ${i}
+            done
+            ;;
+        "prod")
+            for i in $(kprod api-resources --verbs=list --namespaced -o name | grep -v "events.events.k8s.io" | grep -v "events" | sort | uniq); do
+                echo "Resource:" $i " namespace: " $2
+                kdev -n ${2} get ${i}
+            done
+            ;;
+        "sandbox")
+            for i in $(ksandbox api-resources --verbs=list --namespaced -o name | grep -v "events.events.k8s.io" | grep -v "events" | sort | uniq); do
+                echo "Resource:" $i " namespace: " $2
+                kdev -n ${2} get ${i}
+            done
+            ;;
+    esac
+}
+
+# https://www.openldap.org/software/man.cgi?query=ldap.conf#end
+ldap_getallgroups(){
+  ldapsearch -LLL -xD "uid=$USER,ou=people,dc=clover,dc=com" -b "dc=clover,dc=com" -H ldaps://corpldap-master01.corp.pdx02.clover.network -W "(|(&(objectclass=posixgroup)(gidnumber>=10000))(objectclass=groupofuniquenames))" cn | grep 'cn:' | sed 's/cn: //g' | sort
+}
+
+ldap_getallmygroups(){
+  ldapsearch -LLL -xD "uid=${USER},ou=people,dc=clover,dc=com" -b "dc=clover,dc=com" -H ldaps://corpldap-master01.corp.pdx02.clover.network -W "(&(|(&(objectclass=posixgroup)(gidnumber>=10000))(objectclass=groupofuniquenames))(|(memberuid:caseignoreia5match:=${USER})(uniquemember=uid=${USER},ou=people,dc=clover,dc=com)))" cn | grep 'cn:' | sed 's/cn: //g' | sort
+}
+
+ldap_getallgroupsofuser(){
+  ldapsearch -LLL -xD "uid=$USER,ou=people,dc=clover,dc=com" -b "dc=clover,dc=com" -H ldaps://corpldap-master01.corp.pdx02.clover.network -W "(&(|(&(objectclass=posixgroup)(gidnumber>=10000))(objectclass=groupofuniquenames))(|(memberuid:caseignoreia5match:=${1})(uniquemember=uid=${1},ou=people,dc=clover,dc=com)))" cn | grep 'cn:' | sed 's/cn: //g' | sort
+}
+
+ldap_getallusersofgroup(){
+  ldapsearch -LLL -xD "uid=$USER,ou=people,dc=clover,dc=com" -b "dc=clover,dc=com" -H ldaps://corpldap-master01.corp.pdx02.clover.network -W "(cn=${1})" memberUid uniqueMember | egrep 'memberUid|uniqueMember' | sed 's/memberUid: //g' | sed -E 's/uniqueMember: uid=(.*),ou=people,dc=clover,dc=com/\1/g' | sort
+}
+
+ldap_getmyldapdetails(){
+  ldapsearch -LLL -xD "uid=$USER,ou=people,dc=clover,dc=com" -b "dc=clover,dc=com" -H ldaps://corpldap-master01.corp.pdx02.clover.network -W "(uid=$USER)"
+}
+
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/krupesh.faldu/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/krupesh.faldu/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/krupesh.faldu/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/krupesh.faldu/google-cloud-sdk/completion.zsh.inc'; fi
+
+# Enable ZSH auto-complete
+autoload -U +X compinit; compinit
+
+# Initialize jenv
+eval "$(jenv init -)"
+
+# Add MySQL to Path
+export PATH="$PATH:/opt/homebrew/opt/mysql-client/bin"
+
+# Add Krew to Path
+export PATH="$HOME/.krew/bin:$PATH"
+
+# Point Docker to Minikube
+eval $(minikube -p minikube docker-env)
+
+# Use GKE specific kubernetes provider
+# https://cloud.google.com/blog/products/containers-kubernetes/kubectl-auth-changes-in-gke
+export USE_GKE_GCLOUD_AUTH_PLUGIN="True"

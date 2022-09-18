@@ -1,5 +1,6 @@
+adoptopenjdk
+adoptopenjdk11
 android-platform-tools
 android-sdk
 dozer
 rar
-virtualbox

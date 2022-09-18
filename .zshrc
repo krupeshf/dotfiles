@@ -187,11 +187,6 @@ source <(istioctl completion zsh)
 ################################################################################
 ##### EXPORTS #####
 
-# Node Versioning System - makes its easy to switch between node versions
-# brew install nvm && mkdir $HOME/.nvm
-export NVM_DIR="$HOME/.nvm"
-. "/usr/local/opt/nvm/nvm.sh"
-
 # Making go path inside home folder
 export GOPATH=~/go
 
@@ -260,7 +255,8 @@ alias cleanupZshHistory="awk '!seen[$0]++' ~/.zsh_history | awk '!/^(git|cd|cat|
 
 # https://confluence.dev.clover.com/display/CO/Setting+up+production+SSH+access+with+yubikeys
 # alias yubinit='eval `noglob ssh-agent -s -P /usr/local/lib/*,/usr/local/Cellar/yubico-piv-tool/*/lib/*.dylib`;ssh-add -s /usr/local/lib/libykcs11.dylib'
-alias yubinit='eval `killall ssh-agent;noglob ssh-agent -s -P /usr/local/lib/*,/usr/local/Cellar/yubico-piv-tool/*/lib/*.dylib`;ssh-add -s /usr/local/lib/libykcs11.dylib'
+# alias yubinit='eval `killall ssh-agent;noglob ssh-agent -s -P /usr/local/lib/*,/usr/local/Cellar/yubico-piv-tool/*/lib/*.dylib`;ssh-add -s /usr/local/lib/libykcs11.dylib'
+alias yubinit='eval `noglob ssh-agent -s -P /opt/homebrew/lib/*,/opt/homebrew/Cellar/yubico-piv-tool/*/lib/*.dylib`;ssh-add -s /opt/homebrew/lib/libykcs11.dylib'
 
 # https://github.corp.clover.com/clover/gke-cluster-manager/wiki/Connecting-to-clusters#steps-for-kubectl-via-privoxy
 alias ksandbox='kubectl --context gke_clover-sandbox-kubernetes_us-west1_sandbox-us-west1-cluster'
@@ -499,12 +495,6 @@ ldap_getmyldapdetails(){
 }
 
 
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/krupesh.faldu/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/krupesh.faldu/google-cloud-sdk/path.zsh.inc'; fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f '/Users/krupesh.faldu/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/krupesh.faldu/google-cloud-sdk/completion.zsh.inc'; fi
-
 # Enable ZSH auto-complete
 autoload -U +X compinit; compinit
 
@@ -523,3 +513,18 @@ eval $(minikube -p minikube docker-env)
 # Use GKE specific kubernetes provider
 # https://cloud.google.com/blog/products/containers-kubernetes/kubectl-auth-changes-in-gke
 export USE_GKE_GCLOUD_AUTH_PLUGIN="True"
+source /opt/homebrew/opt/powerlevel10k/powerlevel10k.zsh-theme
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/krupesh.faldu/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/krupesh.faldu/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/krupesh.faldu/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/krupesh.faldu/google-cloud-sdk/completion.zsh.inc'; fi
+
+export TESTCONTAINERS_RYUK_DISABLED=true
+
+export ARM=true

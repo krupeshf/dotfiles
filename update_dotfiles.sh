@@ -8,6 +8,7 @@ homeDirectory=/Users/$USER
 cp $homeDirectory/.bash_profile \
   $homeDirectory/.bashrc \
   $homeDirectory/.zshrc \
+  $homeDirectory/.zprofile \
   $homeDirectory/.vimrc \
   $homeDirectory/.gitignore_global \
   $homeDirectory/.gitconfig \
