@@ -1,3 +1,5 @@
+export GPG_TTY=$(tty)
+
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -124,7 +126,7 @@ export EDITOR='vim'
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-source ~/powerlevel10k/powerlevel10k.zsh-theme
+# source ~/powerlevel10k/powerlevel10k.zsh-theme
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
@@ -249,7 +251,7 @@ alias gmain="git stash && git ch main && git pull && gprunemain"
 # just clean up stuff for clearing the icons - for sanity
 alias clearIcons="sudo find . -type f -name \"Icon?\" -delete"
 
-alias updateDailyLog="cd dailyLog && git add . && git co -m'm' && git push && git push gitlab master && cd -"
+alias updateDailyLog="cd dailyLog && git pull && git add . && git co -m'm' && git push && git push gitlab master && cd -"
 
 alias cleanupZshHistory="awk '!seen[$0]++' ~/.zsh_history | awk '!/^(git|cd|cat|touch|echo|brew|rm|less|subl|kill|cp|mv|gcloud|terraform|kubectl|helm|vault|docker|vi)/' ~/.zsh_history > temp.txt && mv temp.txt ~/.zsh_history"
 

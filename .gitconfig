@@ -1,30 +1,35 @@
 [user]
-        email = krupesh.faldu@clover.com
-        name = Krupesh
+  email = krupesh.faldu@clover.com
+  name = Krupesh Faldu
+  signingkey = 92A467E78D592DEF
 [push]
-        default = current
+  default = current
 [alias]
-	hc = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --
-	hd = log -p --ignore-space-change
-	hdf = log -p --ignore-space-change --follow
-	hf = log --name-only --oneline --graph --decorate
-	co = commit -v
-	coa = commit -v --amend
-	coae = commit -v --amend --no-edit
-	st = status -s
-	du = diff --ignore-space-change
-	ds = diff --cached --ignore-space-change
-	dh = diff HEAD
-	ch = checkout
-	sa = stash
-	po = stash pop
-	ad = add --u
-        pr = pull --rebase
-        lt = tag --sort=-version:refname
+  hc = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --
+  hd = log -p --ignore-space-change
+  hdf = log -p --ignore-space-change --follow
+  hf = log --name-only --oneline --graph --decorate
+  co = commit -v
+  coa = commit -v --amend
+  coae = commit -v --amend --no-edit
+  st = status -s
+  du = diff --ignore-space-change
+  ds = diff --cached --ignore-space-change
+  dh = diff HEAD
+  ch = checkout
+  sa = stash
+  po = stash pop
+  ad = add --u
+  pr = pull --rebase
+  lt = tag --sort=-version:refname
 [core]
-	editor = vim
-	excludesfile = ~/.gitignore_global
+  editor = vim
+  excludesfile = ~/.gitignore_global
 [rerere]
-	enabled = 1
+  enabled = 1
 [pull]
-	ff = only
+  ff = only
+[commit]
+  gpgsign = true
+[tag]
+  gpgsign = true
