@@ -224,6 +224,9 @@ export PATH="/Applications/Sublime Text.app/Contents/SharedSupport/bin:$PATH"
 # https://krew.sigs.k8s.io/docs/user-guide/setup/install/
 export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 
+# export for vault login
+export LDAP_USERNAME=krupesh.faldu
+
 ################################################################################
 ##### ALIASES #####
 
@@ -251,7 +254,7 @@ alias gmain="git stash && git ch main && git pull && gprunemain"
 # just clean up stuff for clearing the icons - for sanity
 alias clearIcons="sudo find . -type f -name \"Icon?\" -delete"
 
-alias updateDailyLog="cd dailyLog && git pull && git add . && git co -m'm' && git push && git push gitlab master && cd -"
+alias updateDailyLog="cd dailyLog && git pull && git add . && git co -m'm' --no-gpg-sign && git push && git push gitlab master && cd -"
 
 alias cleanupZshHistory="awk '!seen[$0]++' ~/.zsh_history | awk '!/^(git|cd|cat|touch|echo|brew|rm|less|subl|kill|cp|mv|gcloud|terraform|kubectl|helm|vault|docker|vi)/' ~/.zsh_history > temp.txt && mv temp.txt ~/.zsh_history"
 
@@ -283,7 +286,7 @@ alias hadmin="helm --kube-context gke_clover-admin-plane_us-west1_admin-us-west1
 alias hprod="helm --kube-context gke_clover-prod-kubernetes_us-central1_prod-us-central1-cluster"
 alias hnaprod="helm --kube-context gke_clover-prod-kubernetes_us-central1_prod-us-central1-cluster"
 
-alias rp="ssh 'pi@192.168.86.230'"
+alias rp="ssh pi@raspberrypi.local"
 
 # create immediate files if required and cd into that directory
 function mkdr
@@ -530,3 +533,4 @@ if [ -f '/Users/krupesh.faldu/google-cloud-sdk/completion.zsh.inc' ]; then . '/U
 export TESTCONTAINERS_RYUK_DISABLED=true
 
 export ARM=true
+export PATH="/opt/homebrew/opt/openssl@3/bin:$PATH"

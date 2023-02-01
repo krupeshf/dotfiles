@@ -17,12 +17,14 @@ check
 chrome-cli
 cjson
 cmocka
+colima
 coreutils
 dav1d
 docbook
 docbook-xsl
 docker
 dockerize
+docutils
 eksctl
 expect
 flac
@@ -58,6 +60,7 @@ gts
 guile
 harfbuzz
 helm
+highway
 icu4c
 imagemagick
 imath
@@ -116,6 +119,7 @@ libssh
 libtasn1
 libtiff
 libtool
+libunibreak
 libunistring
 libusb
 libuv
@@ -129,6 +133,7 @@ libxcb
 libxdmcp
 libxext
 libxrender
+lima
 little-cms2
 lz4
 lzlib
@@ -158,6 +163,7 @@ openjdk
 openjdk@17
 openjpeg
 openssl@1.1
+openssl@3
 opus
 p11-kit
 pango
@@ -173,6 +179,7 @@ postgresql@14
 powerlevel10k
 pyenv
 python@3.10
+python@3.11
 python@3.8
 python@3.9
 qemu
