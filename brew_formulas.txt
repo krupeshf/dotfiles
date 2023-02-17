@@ -78,7 +78,6 @@ k9s
 krb5
 krew
 kubectx
-kubernetes-cli
 kustomize
 lame
 leptonica

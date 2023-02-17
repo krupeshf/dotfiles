@@ -160,9 +160,9 @@ test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell
 # https://www.terraform.io/docs/cli/commands/index.html#shell-tab-completion
 # terraform -install-autocomplete
 # terraform -uninstall-autocomplete
-autoload -U +X bashcompinit && bashcompinit
-complete -o nospace -C /usr/local/Cellar/tfenv/2.2.2/versions/0.12.31/terraform terraform
-complete -o nospace -C /usr/local/Cellar/tfenv/2.2.2/versions/0.14.7/terraform terraform
+# complete -o nospace -C /usr/local/Cellar/tfenv/2.2.2/versions/0.12.31/terraform terraform
+# complete -o nospace -C /usr/local/Cellar/tfenv/2.2.2/versions/0.14.7/terraform terraform
+complete -o nospace -C /opt/homebrew/Cellar/tfenv/3.0.0/versions/1.2.3/terraform terraform
 
 # https://www.vaultproject.io/docs/commands#autocompletion
 # vault -autocomplete-install
@@ -235,6 +235,9 @@ alias c="clear"
 
 # clean docker containers instances which are exited && prune some images
 alias dclean="docker ps -q -f status=exited | xargs docker rm && docker image prune"
+
+# start colima
+alias cstart="colima start --memory 20 --cpu 4 --disk 50"
 
 # listing
 alias la='ls -larthG' # list it, hidden files, revererse order, timestamp, human readable size, colorized output
@@ -534,3 +537,4 @@ export TESTCONTAINERS_RYUK_DISABLED=true
 
 export ARM=true
 export PATH="/opt/homebrew/opt/openssl@3/bin:$PATH"
+
