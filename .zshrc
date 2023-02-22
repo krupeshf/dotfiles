@@ -537,4 +537,6 @@ export TESTCONTAINERS_RYUK_DISABLED=true
 
 export ARM=true
 export PATH="/opt/homebrew/opt/openssl@3/bin:$PATH"
+export PATH="/opt/homebrew/bin:$PATH"
+
 

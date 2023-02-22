@@ -80,6 +80,7 @@ krew
 kubectx
 kustomize
 lame
+ldns
 leptonica
 libarchive
 libass
@@ -161,6 +162,7 @@ openexr
 openjdk
 openjdk@17
 openjpeg
+openssh
 openssl@1.1
 openssl@3
 opus
