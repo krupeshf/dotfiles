@@ -139,6 +139,8 @@ setopt APPEND_HISTORY
 HISTFILE=~/.zsh_history
 HISTSIZE=999999999
 SAVEHIST=$HISTSIZE
+setopt HIST_FIND_NO_DUPS
+setopt HIST_IGNORE_ALL_DUPS
 
 # vi mode!
 # very easy to navigate for bigger commands and overall awesomeness

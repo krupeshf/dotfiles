@@ -64,6 +64,7 @@ highway
 icu4c
 imagemagick
 imath
+insights
 ipcalc
 istioctl
 jasper
@@ -162,7 +163,6 @@ openexr
 openjdk
 openjdk@17
 openjpeg
-openssh
 openssl@1.1
 openssl@3
 opus
