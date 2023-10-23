@@ -1,5 +1,7 @@
 adoptopenjdk
 adoptopenjdk11
+adoptopenjdk8
+alt-tab
 android-platform-tools
 android-sdk
 dozer

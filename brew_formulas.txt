@@ -167,6 +167,7 @@ openssl@1.1
 openssl@3
 opus
 p11-kit
+pandoc
 pango
 parrot
 pcre

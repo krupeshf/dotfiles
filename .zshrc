@@ -179,12 +179,7 @@ source <(argocd completion zsh)
 
 # https://kubernetes.io/docs/tasks/tools/install-kubectl-macos/#optional-kubectl-configurations-and-plugins
 source <(kubectl completion zsh)
-complete -F __start_kubectl ksandbox
-complete -F __start_kubectl kdev
-complete -F __start_kubectl kdevci
-complete -F __start_kubectl kadmin
-complete -F __start_kubectl kprod
-complete -F __start_kubectl knaprod
+complete -F __start_kubectl k
 
 # https://istio.io/latest/docs/ops/diagnostic-tools/istioctl/#enabling-auto-completion
 source <(istioctl completion zsh)
@@ -259,7 +254,7 @@ alias gmain="git stash && git ch main && git pull && gprunemain"
 # just clean up stuff for clearing the icons - for sanity
 alias clearIcons="sudo find . -type f -name \"Icon?\" -delete"
 
-alias updateDailyLog="cd dailyLog && git pull && git add . && git co -m'm' --no-gpg-sign && git push && git push gitlab master && cd -"
+alias udl="cd dailyLog && git pull && git add . && git co -m'm' --no-gpg-sign && git push && git push gitlab master && cd -"
 
 alias cleanupZshHistory="awk '!seen[$0]++' ~/.zsh_history | awk '!/^(git|cd|cat|touch|echo|brew|rm|less|subl|kill|cp|mv|gcloud|terraform|kubectl|helm|vault|docker|vi)/' ~/.zsh_history > temp.txt && mv temp.txt ~/.zsh_history"
 
@@ -268,30 +263,9 @@ alias cleanupZshHistory="awk '!seen[$0]++' ~/.zsh_history | awk '!/^(git|cd|cat|
 # alias yubinit='eval `killall ssh-agent;noglob ssh-agent -s -P /usr/local/lib/*,/usr/local/Cellar/yubico-piv-tool/*/lib/*.dylib`;ssh-add -s /usr/local/lib/libykcs11.dylib'
 alias yubinit='eval `noglob ssh-agent -s -P /opt/homebrew/lib/*,/opt/homebrew/Cellar/yubico-piv-tool/*/lib/*.dylib`;ssh-add -s /opt/homebrew/lib/libykcs11.dylib'
 
-# https://github.corp.clover.com/clover/gke-cluster-manager/wiki/Connecting-to-clusters#steps-for-kubectl-via-privoxy
-alias ksandbox='kubectl --context gke_clover-sandbox-kubernetes_us-west1_sandbox-us-west1-cluster'
-alias kdev="kubectl --context gke_clover-dev-kubernetes_us-west1_dev-us-west1-cluster"
-alias kdevci="kubectl --context gke_clover-dev-kubernetes_us-west1_dev-ci-us-west1-cluster"
-alias kadmin="kubectl --context gke_clover-admin-plane_us-west1_admin-us-west1-cluster"
-alias kprod="kubectl --context gke_clover-prod-kubernetes_us-central1_prod-us-central1-cluster"
-alias knaprod="kubectl --context gke_clover-prod-kubernetes_us-central1_na-prod-us-central1-cluster"
-
-# https://github.corp.clover.com/clover/gke-cluster-manager/wiki/Connecting-to-clusters#steps-for-k9s-via-privoxy
-alias k9ssandbox='k9s --context gke_clover-sandbox-kubernetes_us-west1_sandbox-us-west1-cluster'
-alias k9sdev="k9s --context gke_clover-dev-kubernetes_us-west1_dev-us-west1-cluster"
-alias k9sdevci="k9s --context gke_clover-dev-kubernetes_us-west1_dev-ci-us-west1-cluster"
-alias k9sadmin="k9s --context gke_clover-admin-plane_us-west1_admin-us-west1-cluster"
-alias k9sprod="k9s --context gke_clover-prod-kubernetes_us-central1_prod-us-central1-cluster"
-alias k9snaprod="k9s --context gke_clover-prod-kubernetes_us-central1_na-prod-us-central1-cluster"
-
-# https://github.corp.clover.com/clover/gke-cluster-manager/wiki/Connecting-to-clusters#steps-for-helm-via-privoxy
-alias hsandbox="helm --kube-context gke_clover-sandbox-kubernetes_us-west1_sandbox-us-west1-cluster"
-alias hdev="helm --kube-context gke_clover-dev-kubernetes_us-west1_dev-us-west1-cluster"
-alias hadmin="helm --kube-context gke_clover-admin-plane_us-west1_admin-us-west1-cluster"
-alias hprod="helm --kube-context gke_clover-prod-kubernetes_us-central1_prod-us-central1-cluster"
-alias hnaprod="helm --kube-context gke_clover-prod-kubernetes_us-central1_prod-us-central1-cluster"
-
 alias rp="ssh pi@raspberrypi.local"
+
+alias k="kubectl"
 
 # create immediate files if required and cd into that directory
 function mkdr
@@ -518,7 +492,7 @@ export PATH="$PATH:/opt/homebrew/opt/mysql-client/bin"
 export PATH="$HOME/.krew/bin:$PATH"
 
 # Point Docker to Minikube
-eval $(minikube -p minikube docker-env)
+# eval $(minikube -p minikube docker-env)
 
 # Use GKE specific kubernetes provider
 # https://cloud.google.com/blog/products/containers-kubernetes/kubectl-auth-changes-in-gke
