@@ -491,13 +491,16 @@ export PATH="$PATH:/opt/homebrew/opt/mysql-client/bin"
 # Add Krew to Path
 export PATH="$HOME/.krew/bin:$PATH"
 
+# Add go bin folder to path
+export PATH="$PATH:$HOME/go/bin"
+
 # Point Docker to Minikube
 # eval $(minikube -p minikube docker-env)
 
 # Use GKE specific kubernetes provider
 # https://cloud.google.com/blog/products/containers-kubernetes/kubectl-auth-changes-in-gke
 export USE_GKE_GCLOUD_AUTH_PLUGIN="True"
-source /opt/homebrew/opt/powerlevel10k/powerlevel10k.zsh-theme
+# source /opt/homebrew/opt/powerlevel10k/powerlevel10k.zsh-theme
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm

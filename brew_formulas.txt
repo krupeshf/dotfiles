@@ -13,6 +13,7 @@ c-ares
 ca-certificates
 cairo
 capstone
+cffi
 check
 chrome-cli
 cjson
@@ -23,8 +24,10 @@ dav1d
 docbook
 docbook-xsl
 docker
+docker-completion
 dockerize
 docutils
+dtc
 eksctl
 expect
 flac
@@ -61,6 +64,7 @@ guile
 harfbuzz
 helm
 highway
+http-server
 icu4c
 imagemagick
 imath
@@ -79,6 +83,7 @@ k9s
 krb5
 krew
 kubectx
+kubernetes-cli
 kustomize
 lame
 ldns
@@ -102,6 +107,7 @@ libidn
 libidn2
 libksba
 liblqr
+libmicrohttpd
 libnghttp2
 libogg
 libomp
@@ -136,6 +142,7 @@ libxext
 libxrender
 lima
 little-cms2
+luajit
 lz4
 lzlib
 lzo
@@ -146,6 +153,7 @@ memcached
 minikube
 mpdecimal
 mpfr
+mpg123
 mysql-client
 mysql-client@5.7
 nats-server
@@ -163,6 +171,7 @@ openexr
 openjdk
 openjdk@17
 openjpeg
+openldap
 openssl@1.1
 openssl@3
 opus
@@ -179,9 +188,12 @@ pixman
 pkg-config
 postgresql@14
 powerlevel10k
+pycparser
 pyenv
+python-setuptools
 python@3.10
 python@3.11
+python@3.12
 python@3.8
 python@3.9
 qemu
