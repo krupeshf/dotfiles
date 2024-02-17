@@ -267,6 +267,10 @@ alias rp="ssh pi@raspberrypi.local"
 
 alias k="kubectl"
 
+# enable or disable blocker
+alias enableblocker="networksetup -setdnsservers Wi-Fi 192.168.1.23 && networksetup -setdnsservers CalDigitEthernet 192.168.1.23"
+alias disableblocker="networksetup -setdnsservers Wi-Fi 192.168.1.23 8.8.8.8 && networksetup -setdnsservers CalDigitEthernet 192.168.1.23 8.8.8.8"
+
 # create immediate files if required and cd into that directory
 function mkdr
 {
