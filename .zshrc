@@ -188,6 +188,7 @@ source <(istioctl completion zsh)
 
 # Making go path inside home folder
 export GOPATH=~/go
+export PATH=$PATH:$GOPATH/bin
 
 # Add nod_modules to executable path - this way all the modules installed in the application can be run directly
 export PATH=$PATH:./node_modules/.bin

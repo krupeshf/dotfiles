@@ -2,11 +2,13 @@ To import exported extensions
 
 
 code --install-extension golang.go
+code --install-extension googlecloudtools.cloudcode
 code --install-extension hashicorp.terraform
 code --install-extension jinliming2.vscode-go-template
 code --install-extension ms-azuretools.vscode-docker
 code --install-extension ms-kubernetes-tools.vscode-kubernetes-tools
 code --install-extension msyrus.go-doc
+code --install-extension nicolasvuillamy.vscode-groovy-lint
 code --install-extension redhat.vscode-commons
 code --install-extension redhat.vscode-yaml
 code --install-extension tsandall.opa

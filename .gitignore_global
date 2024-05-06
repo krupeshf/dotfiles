@@ -7,3 +7,4 @@ terraform.tfstate*
 *.svg
 .idea/
 *.iml
+.vscode/

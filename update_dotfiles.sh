@@ -48,4 +48,7 @@ code --list-extensions | xargs -L 1 echo code --install-extension >> vscode_exte
 # for backing up intellij settings - https://gist.github.com/jimzhan/529aa82465549043d883f739e9e93701
 # manually export all the settings for intellij > File > Manage IDE Settings > Export
 
+# download the keymap bindings using via - https://usevia.app/#/, save it in downloads folder
+cp ~/downloads/keychron_v10_ansi_knob.layout.json keychron_v10_ansi_knob.layout.json
+
 git add . && git commit -m "Update dotfile with automated script" && git push
