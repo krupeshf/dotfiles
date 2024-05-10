@@ -3,7 +3,7 @@
   "vendorProductId": 875824033,
   "macros": [
     "",
-    "",
+    "{KC_LGUI,KC_SPC}{150}YouTube Music.app{KC_ENT}{500}{KC_SPC}{500}{KC_LGUI,KC_TAB}",
     "",
     "",
     "",
@@ -30,7 +30,7 @@
       "RGB_VAD",
       "RGB_VAI",
       "KC_MPRV",
-      "KC_MPLY",
+      "MACRO(1)",
       "KC_MNXT",
       "KC_MUTE",
       "KC_VOLD",
