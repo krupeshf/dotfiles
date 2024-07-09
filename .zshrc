@@ -11,7 +11,7 @@ fi
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH="/Users/krupesh.faldu/.oh-my-zsh"
+export ZSH="$HOME/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -523,4 +523,17 @@ export ARM=true
 export PATH="/opt/homebrew/opt/openssl@3/bin:$PATH"
 export PATH="/opt/homebrew/bin:$PATH"
 
+## ORACLE ##
 
+export http_proxy=http://www-proxy.us.oracle.com:80
+export https_proxy=http://www-proxy.us.oracle.com:80
+export HTTP_PROXY=http://www-proxy.us.oracle.com:80
+export HTTPS_PROXY=http://www-proxy.us.oracle.com:80
+export proxy_rsync=http://www-proxy.us.oracle.com:80
+export PROXY_RSYNC=http://www-proxy.us.oracle.com:80
+export ftp_proxy=http://www-proxy.us.oracle.com:80
+export FTP_PROXY=http://www-proxy.us.oracle.com:80
+export all_proxy=http://www-proxy.us.oracle.com:80
+export ALL_PROXY=http://www-proxy.us.oracle.com:80
+export no_proxy="localhost,127.0.0.1,.us.oracle.com,.oraclecorp.com,.oraclevpn.com,.oraclevcn.com"
+export NO_PROXY="localhost,127.0.0.1,.us.oracle.com,.oraclecorp.com,.oraclevpn.com,.oraclevcn.com"
