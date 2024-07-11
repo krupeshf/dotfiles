@@ -23,7 +23,6 @@ coreutils
 dav1d
 docbook
 docbook-xsl
-docker
 docker-completion
 dockerize
 docutils
