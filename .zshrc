@@ -42,7 +42,7 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # zstyle ':omz:update' frequency 13
 
 # Uncomment the following line if pasting URLs and other text is messed up.
-# DISABLE_MAGIC_FUNCTIONS="true"
+DISABLE_MAGIC_FUNCTIONS="true"
 
 # Uncomment the following line to disable colors in ls.
 # DISABLE_LS_COLORS="true"
@@ -135,12 +135,26 @@ export EDITOR='vim'
 ### CHANGES SPECIFIC TO KRUPESH ###
 
 # zsh history
-setopt APPEND_HISTORY
 HISTFILE=~/.zsh_history
 HISTSIZE=999999999
 SAVEHIST=$HISTSIZE
+setopt APPEND_HISTORY
 setopt HIST_FIND_NO_DUPS
 setopt HIST_IGNORE_ALL_DUPS
+setopt BANG_HIST                 # Treat the ! character specially during expansion
+setopt EXTENDED_HISTORY          # Write the history file in the ":start:elapsed;command" format
+setopt INC_APPEND_HISTORY        # Write to the history file immediately, not when the shell exits
+setopt SHARE_HISTORY             # Share history between all sessions
+setopt HIST_EXPIRE_DUPS_FIRST    # Expire duplicate entries first when trimming history
+setopt HIST_IGNORE_DUPS          # Dont record an entry that was just recorded again
+setopt HIST_IGNORE_ALL_DUPS      # Delete old recorded entry if new entry is a duplicate
+setopt HIST_FIND_NO_DUPS         # Do not display a line previously found
+setopt HIST_IGNORE_SPACE         # Dont record an entry starting with a space
+setopt HIST_SAVE_NO_DUPS         # Dont write duplicate entries in the history file
+setopt HIST_REDUCE_BLANKS        # Remove superfluous blanks before recording entry
+setopt HIST_VERIFY               # Dont execute immediately upon history expansion
+setopt HIST_BEEP                 # Beep when accessing nonexistent history
+setopt interactive_comments
 
 # vi mode!
 # very easy to navigate for bigger commands and overall awesomeness
@@ -187,8 +201,9 @@ source <(istioctl completion zsh)
 ##### EXPORTS #####
 
 # Making go path inside home folder
-export GOPATH=~/go
+export GOPATH=~/go # for oracle, gopath is ~/dev/go - let's see what happens if we keep it at home directory
 export PATH=$PATH:$GOPATH/bin
+export GOPRIVATE="*.oci.oraclecorp.com"
 
 # Add nod_modules to executable path - this way all the modules installed in the application can be run directly
 export PATH=$PATH:./node_modules/.bin
@@ -485,7 +500,7 @@ ldap_getmyldapdetails(){
 
 
 # Enable ZSH auto-complete
-autoload -U +X compinit; compinit
+autoload -Uz +X compinit; compinit
 
 # Initialize jenv
 eval "$(jenv init -)"
@@ -525,6 +540,7 @@ export PATH="/opt/homebrew/bin:$PATH"
 
 ## ORACLE ##
 
+# https://confluence.oraclecorp.com/confluence/display/ACFS/HOWTO+macOS+Terminal+%28Not+Just+a+Pretty+Face%29+V2.0#HOWTOmacOSTerminal(NotJustaPrettyFace)V2.0-proxy_environment_variablesProxyEnvironmentVariables(usefulwithHomebrew,git,curl,rsync,etc...)
 export http_proxy=http://www-proxy.us.oracle.com:80
 export https_proxy=http://www-proxy.us.oracle.com:80
 export HTTP_PROXY=http://www-proxy.us.oracle.com:80
@@ -537,3 +553,29 @@ export all_proxy=http://www-proxy.us.oracle.com:80
 export ALL_PROXY=http://www-proxy.us.oracle.com:80
 export no_proxy="localhost,127.0.0.1,.us.oracle.com,.oraclecorp.com,.oraclevpn.com,.oraclevcn.com"
 export NO_PROXY="localhost,127.0.0.1,.us.oracle.com,.oraclecorp.com,.oraclevpn.com,.oraclevcn.com"
+
+export V2_DIRECTORY=~/code # it was actually ~/dev/v2
+export V3_DIRECTORY=~/code # it was actually ~/dev/v3
+export KUBECONFIG="${HOME}/.kube/config"
+
+# https://confluence.oraclecorp.com/confluence/display/OSSP/Development+Environment+Setup#DevelopmentEnvironmentSetup-InstallBrewpackagesandsetZSHenvironment
+reload-ssh() {
+  ssh-add -e /usr/local/lib/opensc-pkcs11.so >> /dev/null
+  if [ $? -gt 0 ]; then
+      echo "Failed to remove previous card"
+  fi
+  ssh-add -s /usr/local/lib/opensc-pkcs11.so
+}
+
+# https://www.osc.edu/resources/getting_started/howto/howto_use_ulimit_command_to_set_soft_limits
+ulimit -n 65536
+
+# Rancher Desktop setting
+export PATH="/opt/homebrew/opt/gnu-sed/libexec/gnubin:$PATH:$V2_DIRECTORY/ossp-dev-tools/ops/v2:$V3_DIRECTORY/ossp-dev-tools/ops/v3:$V3_DIRECTORY/ossp-dev-tools/ops/tools:${HOME}/.rd/bin"
+
+# Set OCI Session Auth as Default
+export OCI_CLI_AUTH=security_token
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="$HOME/.sdkman"
+[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
