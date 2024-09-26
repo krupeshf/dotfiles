@@ -264,8 +264,18 @@ alias gg="git grep -n"
 alias greset="git reset --hard HEAD"
 alias gprunemaster="git remote prune origin && git branch --merged master --no-color | grep -v master | grep -v stable | xargs git branch -D"
 alias gprunemain="git remote prune origin && git branch --merged main --no-color | grep -v main | grep -v stable | xargs git branch -D"
+alias gpb='git-prune-branches'
 alias gmaster="git stash && git ch master && git pull && gprunemaster"
 alias gmain="git stash && git ch main && git pull && gprunemain"
+
+function git-prune-branches() {
+        echo "switching to master or main branch.."
+        git branch | grep 'main\|master' | xargs -n 1 git checkout
+        echo "fetching with -p option...";
+        git fetch -p;
+        echo "running pruning of local branches"
+        git branch -vv | grep ': gone]'|  grep -v "\*" | awk '{ print $1; }' | xargs -r git branch -d ;
+}
 
 # just clean up stuff for clearing the icons - for sanity
 alias clearIcons="sudo find . -type f -name \"Icon?\" -delete"
@@ -499,9 +509,6 @@ ldap_getmyldapdetails(){
 }
 
 
-# Enable ZSH auto-complete
-autoload -Uz +X compinit; compinit
-
 # Initialize jenv
 eval "$(jenv init -)"
 
@@ -526,12 +533,6 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/krupesh.faldu/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/krupesh.faldu/google-cloud-sdk/path.zsh.inc'; fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f '/Users/krupesh.faldu/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/krupesh.faldu/google-cloud-sdk/completion.zsh.inc'; fi
-
 export TESTCONTAINERS_RYUK_DISABLED=true
 
 export ARM=true
@@ -541,18 +542,18 @@ export PATH="/opt/homebrew/bin:$PATH"
 ## ORACLE ##
 
 # https://confluence.oraclecorp.com/confluence/display/ACFS/HOWTO+macOS+Terminal+%28Not+Just+a+Pretty+Face%29+V2.0#HOWTOmacOSTerminal(NotJustaPrettyFace)V2.0-proxy_environment_variablesProxyEnvironmentVariables(usefulwithHomebrew,git,curl,rsync,etc...)
-export http_proxy=http://www-proxy.us.oracle.com:80
-export https_proxy=http://www-proxy.us.oracle.com:80
-export HTTP_PROXY=http://www-proxy.us.oracle.com:80
-export HTTPS_PROXY=http://www-proxy.us.oracle.com:80
-export proxy_rsync=http://www-proxy.us.oracle.com:80
-export PROXY_RSYNC=http://www-proxy.us.oracle.com:80
-export ftp_proxy=http://www-proxy.us.oracle.com:80
-export FTP_PROXY=http://www-proxy.us.oracle.com:80
-export all_proxy=http://www-proxy.us.oracle.com:80
-export ALL_PROXY=http://www-proxy.us.oracle.com:80
-export no_proxy="localhost,127.0.0.1,.us.oracle.com,.oraclecorp.com,.oraclevpn.com,.oraclevcn.com"
-export NO_PROXY="localhost,127.0.0.1,.us.oracle.com,.oraclecorp.com,.oraclevpn.com,.oraclevcn.com"
+# export http_proxy=http://www-proxy.us.oracle.com:80
+# export https_proxy=http://www-proxy.us.oracle.com:80
+# export HTTP_PROXY=http://www-proxy.us.oracle.com:80
+# export HTTPS_PROXY=http://www-proxy.us.oracle.com:80
+# export proxy_rsync=http://www-proxy.us.oracle.com:80
+# export PROXY_RSYNC=http://www-proxy.us.oracle.com:80
+# export ftp_proxy=http://www-proxy.us.oracle.com:80
+# export FTP_PROXY=http://www-proxy.us.oracle.com:80
+# export all_proxy=http://www-proxy.us.oracle.com:80
+# export ALL_PROXY=http://www-proxy.us.oracle.com:80
+# export no_proxy="localhost,127.0.0.1,.us.oracle.com,.oraclecorp.com,.oraclevpn.com,.oraclevcn.com"
+# export NO_PROXY="localhost,127.0.0.1,.us.oracle.com,.oraclecorp.com,.oraclevpn.com,.oraclevcn.com"
 
 export V2_DIRECTORY=~/code # it was actually ~/dev/v2
 export V3_DIRECTORY=~/code # it was actually ~/dev/v3
@@ -573,9 +574,38 @@ ulimit -n 65536
 # Rancher Desktop setting
 export PATH="/opt/homebrew/opt/gnu-sed/libexec/gnubin:$PATH:$V2_DIRECTORY/ossp-dev-tools/ops/v2:$V3_DIRECTORY/ossp-dev-tools/ops/v3:$V3_DIRECTORY/ossp-dev-tools/ops/tools:${HOME}/.rd/bin"
 
+# Adding gcloud in path
+export PATH="$PATH:$HOME/google-cloud-sdk/bin"
+
 # Set OCI Session Auth as Default
 export OCI_CLI_AUTH=security_token
+
+# Setup autocomplete for OCI
+[[ -e "/Users/kfaldu/lib/oci_autocomplete.sh" ]] && source "/Users/kfaldu/lib/oci_autocomplete.sh"
+
+# setting up ossp-cli autocompletion
+# mkdir -p ~/.zsh/completion
+# ossp-cli completion zsh > ~/.zsh/completion/_ossp-cli
+alias s="ossp-cli"
+fpath=(~/.zsh/completion $fpath)
+
+alias ocilogin="oci session authenticate --profile-name DEFAULT --region us-ashburn-1 --tenancy-name bmc_operator_access --config-file ~/.oci/config"
+
+# Enable ZSH auto-complete
+# KEEP THIS TOWARDS THE BOTTOM
+autoload -U +X bashcompinit && bashcompinit
+autoload -Uz +X compinit; compinit
+
+# auto completion for 1Password
+eval "$(op completion zsh)"; compdef _op op
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/kfaldu/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/kfaldu/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/kfaldu/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/kfaldu/google-cloud-sdk/completion.zsh.inc'; fi
