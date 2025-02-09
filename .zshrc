@@ -192,8 +192,17 @@ complete -F __start_helm hnaprod
 source <(argocd completion zsh)
 
 # https://kubernetes.io/docs/tasks/tools/install-kubectl-macos/#optional-kubectl-configurations-and-plugins
-source <(kubectl completion zsh)
-complete -F __start_kubectl k
+# kubectl Autocompletion
+kubectl () {
+    command kubectl $*
+    if [[ -z $KUBECTL_COMPLETE ]]
+    then
+        autoload -Uz compinit && compinit
+        source <(command kubectl completion zsh)
+        complete -F __start_kubectl k
+        KUBECTL_COMPLETE=1
+    fi
+}
 
 # https://istio.io/latest/docs/ops/diagnostic-tools/istioctl/#enabling-auto-completion
 source <(istioctl completion zsh)
@@ -587,9 +596,15 @@ export OCI_CLI_AUTH=security_token
 # mkdir -p ~/.zsh/completion
 # ossp-cli completion zsh > ~/.zsh/completion/_ossp-cli
 alias s="ossp-cli"
+alias ossp="ossp-cli"
 fpath=(~/.zsh/completion $fpath)
 
 alias ocilogin="oci session authenticate --profile-name DEFAULT --region us-ashburn-1 --tenancy-name bmc_operator_access --config-file ~/.oci/config"
+
+timezsh() {
+  shell=${1-$SHELL}
+  for i in $(seq 1 10); do /usr/bin/time $shell -i -c exit; done
+}
 
 # Enable ZSH auto-complete
 # KEEP THIS TOWARDS THE BOTTOM
@@ -609,3 +624,7 @@ if [ -f '/Users/kfaldu/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/kfaldu/g
 
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/kfaldu/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/kfaldu/google-cloud-sdk/completion.zsh.inc'; fi
+
+# https://confluence.oraclecorp.com/confluence/display/OSSP/Migration+from+Bitbucket+to+SCM+2025#MigrationfromBitbuckettoSCM2025-HowtoauthagainstSCM
+ssh-agent -a ~/.ssh/scm-agent.sock
+alias scm-ssh-add="SSH_AUTH_SOCK=~/.ssh/scm-agent.sock ssh-add"
