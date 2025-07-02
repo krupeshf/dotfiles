@@ -1,6 +1,9 @@
 adns
 aom
+apr
+apr-util
 argocd
+argon2
 autoconf
 aws-iam-authenticator
 awscli
@@ -20,6 +23,8 @@ cjson
 cmocka
 colima
 coreutils
+cryptography
+curl
 dav1d
 docbook
 docbook-xsl
@@ -32,6 +37,7 @@ expect
 flac
 flyway
 fontconfig
+freetds
 freetype
 frei0r
 fribidi
@@ -65,6 +71,7 @@ helm
 highway
 http-server
 icu4c
+icu4c@77
 imagemagick
 imath
 insights
@@ -95,6 +102,7 @@ libb2
 libbluray
 libcbor
 libde265
+libdeflate
 libev
 libevent
 libffi
@@ -111,6 +119,7 @@ libnghttp2
 libogg
 libomp
 libpng
+libpq
 libpthread-stubs
 libraw
 librdkafka
@@ -122,8 +131,10 @@ libsndfile
 libsodium
 libsoxr
 libssh
+libssh2
 libtasn1
 libtiff
+libtommath
 libtool
 libunibreak
 libunistring
@@ -139,6 +150,7 @@ libxcb
 libxdmcp
 libxext
 libxrender
+libzip
 lima
 little-cms2
 luajit
@@ -157,6 +169,7 @@ mysql-client
 mysql-client@5.7
 nats-server
 ncurses
+net-snmp
 netpbm
 nettle
 nghttp2
@@ -182,9 +195,12 @@ pcre
 pcre2
 pcsc-lite
 percona-toolkit
+perl-dbd-mysql
+php
 pinentry
 pixman
 pkg-config
+pkgconf
 postgresql@14
 powerlevel10k
 pycparser
@@ -193,6 +209,7 @@ python-setuptools
 python@3.10
 python@3.11
 python@3.12
+python@3.13
 python@3.8
 python@3.9
 qemu
@@ -212,12 +229,15 @@ sqlite
 srt
 stern
 tcl-tk
+tcl-tk@8
 telnet
 tesseract
 tfenv
 theora
+tidy-html5
 tree
 unbound
+unixodbc
 vault
 vde
 watch
