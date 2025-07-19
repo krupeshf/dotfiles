@@ -26,10 +26,10 @@ postman
 rar
 raycast
 rectangle
+resilio-sync
 slack
 sublime-text
 utc-menu-clock
-visual-studio-code
 visual-studio-code
 whatsapp
 zen

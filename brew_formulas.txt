@@ -165,6 +165,7 @@ minikube
 mpdecimal
 mpfr
 mpg123
+mysql
 mysql-client
 mysql-client@5.7
 nats-server
@@ -231,6 +232,7 @@ stern
 tcl-tk
 tcl-tk@8
 telnet
+temporal
 tesseract
 tfenv
 theora
