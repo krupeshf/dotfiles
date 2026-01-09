@@ -186,7 +186,7 @@ complete -o nospace -C /usr/local/bin/vault vault
 
 # https://helm.sh/docs/helm/helm_completion_zsh/
 source <(helm completion zsh)
-complete -F __start_helm hnaprod
+# complete -F __start_helm hnaprod
 
 # https://argo-cd.readthedocs.io/en/stable/user-guide/commands/argocd_completion/
 source <(argocd completion zsh)
@@ -230,7 +230,7 @@ export PATH="$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/b
 export PATH="/usr/local/opt/mysql-client/bin:$PATH"
 
 # Awesome - this shows which are your change directory paths to look for - helpful in autocompletion
-export CDPATH=.:~:~/code:~/src/apps
+export CDPATH=~/code:.:~:~/src/apps
 
 # Export default profile for aws command line - assumed_role is profile inside ~/.aws/credentials
 # export AWS_PROFILE=assumed_role
@@ -284,6 +284,34 @@ function git-prune-branches() {
         git fetch -p;
         echo "running pruning of local branches"
         git branch -vv | grep ': gone]'|  grep -v "\*" | awk '{ print $1; }' | xargs -r git branch -d ;
+}
+
+update_op_token() {
+  # Generate a token
+  local token
+  token=$(ssh operator-access-token.svc.ad1.r2 generate --mode jwt) || {
+    echo "❌  Failed to generate token" >&2
+    return 1
+  }
+
+  if [[ -z "$token" ]]; then
+    echo "❌  No token returned" >&2
+    return 1
+  fi
+
+  # Write to a temp file first for safety
+  local tmpfile="${HOME}/.env.$$"
+  echo "OP_TOKEN=${token}" > "$tmpfile" || {
+    echo "❌  Unable to write temporary file" >&2
+    rm -f "$tmpfile"
+    return 1
+  }
+
+  # Protect the file and move atomically into place
+  chmod 600 "$tmpfile"
+  mv "$tmpfile" "${HOME}/.env"
+
+  echo "✅  ~/.env updated with new OP_TOKEN"
 }
 
 # just clean up stuff for clearing the icons - for sanity
@@ -626,5 +654,33 @@ if [ -f '/Users/kfaldu/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/kfaldu/g
 if [ -f '/Users/kfaldu/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/kfaldu/google-cloud-sdk/completion.zsh.inc'; fi
 
 # https://confluence.oraclecorp.com/confluence/display/OSSP/Migration+from+Bitbucket+to+SCM+2025#MigrationfromBitbuckettoSCM2025-HowtoauthagainstSCM
-ssh-agent -a ~/.ssh/scm-agent.sock
-alias scm-ssh-add="SSH_AUTH_SOCK=~/.ssh/scm-agent.sock ssh-add"
+# ssh-agent -a ~/.ssh/scm-agent.sock
+# alias scm-ssh-add="SSH_AUTH_SOCK=~/.ssh/scm-agent.sock ssh-add"
+# https://oracle-one.slack.com/archives/G0161BJ8EPK/p1766084724156869?thread_ts=1761246772.570599&cid=G0161BJ8EPK
+export SSH_SCM_AUTH_SOCK="$HOME/.ssh/scm-agent.sock"
+# Check if the socket file exists
+if [ -S "$SSH_SCM_AUTH_SOCK" ]; then
+    # If the socket exists, check if the SSH agent process is running
+    AGENT_PID=$(ps aux | grep $SSH_SCM_AUTH_SOCK | grep -v grep | head -1 | awk '{print $2}')
+
+    # If no associated process is found or the agent isn't running, start a new SSH agent
+    if [ -z "$AGENT_PID" ]; then
+        # echo "Socket exists but no running agent, starting new SSH agent..."
+        rm $SSH_SCM_AUTH_SOCK
+        eval $(ssh-agent -a "$SSH_SCM_AUTH_SOCK")
+    else
+        # If the agent is already running, use the existing one
+        echo "SSH agent already running with PID: $AGENT_PID, using existing agent."
+    fi
+else
+    # If the socket doesn't exist, start a new SSH agent
+    # echo "Socket doesn't exist, starting new SCM SSH agent..."
+    eval $(ssh-agent -a "$SSH_SCM_AUTH_SOCK")
+fi
+
+### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
+export PATH="/Users/kfaldu/.rd/bin:$PATH"
+### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
+export PATH="/opt/homebrew/opt/php@8.2/bin:$PATH"
+export PATH="/opt/homebrew/opt/php@8.2/sbin:$PATH"
+export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
