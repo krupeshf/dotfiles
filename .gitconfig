@@ -1,8 +1,11 @@
+# https://blog.gitbutler.com/how-git-core-devs-configure-git
 [user]
-  email = krupeshf@gmail.com
+  email = krupesh.faldu@oracle.com
   name = Krupesh Faldu
 [push]
   default = current
+  autoSetupRemote = true
+  followTags = true
 [alias]
   hc = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --
   hd = log -p --ignore-space-change
@@ -24,13 +27,49 @@
 [core]
   editor = vim
   excludesfile = ~/.gitignore_global
+	hooksPath = .githooks
 [rerere]
   enabled = 1
 [pull]
   ff = only
 [commit]
   gpgsign = true
+  verbose = true
 [tag]
   gpgsign = true
+  sort = version:refname
 [init]
 	defaultBranch = main
+[url "ssh://kfaldu@bmc_operator_access@oci.private.devops.scmservice.us-phoenix-1.oci.oracleiaas.com/namespaces/axuxirvibvvo/projects/SDK/repositories/oci-go-sdk"]
+	insteadOf = https://github.com/oracle/oci-go-sdk
+[url "ssh://git@bitbucket.oci.oraclecorp.com:7999"]
+	insteadOf = https://bitbucket.oci.oraclecorp.com/scm
+[diff]
+	submodule = log
+  algorithm = histogram
+  colorMoved = plain
+  mnemonicPrefix = true
+  renames = true
+[status]
+	submodulesummary = 1
+[submodule]
+	recurse = true
+[credential]
+	helper = osxkeychain
+[column]
+  ui = auto
+[branch]
+  sort = -committerdate
+[fetch]
+  prune = true
+  pruneTags = true
+  all = true
+[help]
+  autocorrect = prompt
+[rerere]
+  enabled = true
+  autoupdate = true
+[rebase]
+  autoSquash = true
+  autoStash = true
+  updateRefs = true
